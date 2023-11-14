@@ -16,7 +16,7 @@ from osgeo import gdal
 from affine import Affine
 
 from .constants import DEPARTMENTS_LIST
-from utils import (
+from .utils import (
     generate_tiles_borders,
     get_bounds_for_tile,
     get_transform_for_tile,
