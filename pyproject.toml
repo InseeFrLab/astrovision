@@ -1,0 +1,28 @@
+[project]
+name = "astrovision"
+version = "0.0.1"
+authors = [
+  { name="Raya Berova", email="raya.berova@insee.fr" },
+  { name="Thomas Faria", email="thomas.faria@insee.fr" },
+  { name="Clément Guillo", email="clement.guillo@insee.fr" },
+  { name="Tom Seimandi", email="tom.seimandi@gmail.com" },
+]
+description = "The compulsory Python library to work with satellite imagery."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "matplotlib",
+    "rasterio",
+    "torch",
+    "osgeo",
+    "affine",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/InseeFrLab/astrovision"
+"Bug Tracker" = "https://github.com/InseeFrLab/astrovision/issues"
