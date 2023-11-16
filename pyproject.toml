@@ -30,3 +30,6 @@ dependencies = [
 [project.urls]
 "Homepage" = "https://github.com/InseeFrLab/astrovision"
 "Bug Tracker" = "https://github.com/InseeFrLab/astrovision/issues"
+
+[tool.isort]
+profile = "black"
