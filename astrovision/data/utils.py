@@ -1,6 +1,8 @@
 """
 Util functions for the data module.
 """
+from affine import Affine
+from typing import List, Tuple
 import rasterio
 
 

@@ -2,7 +2,7 @@
 Data module.
 """
 
-from .satelliteimage import SatelliteImage
+from .satellite_image import SatelliteImage
 
 __all__ = (
     "SatelliteImage"
