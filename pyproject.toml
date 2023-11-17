@@ -27,6 +27,16 @@ dependencies = [
     "affine",
 ]
 
+[project.optional-dependencies]
+test = [
+    "black",
+    "isort",
+    "flake8",
+    "pre-commit",
+    "pytest",
+    "pytest-cov",
+]
+
 [project.urls]
 "Homepage" = "https://github.com/InseeFrLab/astrovision"
 "Bug Tracker" = "https://github.com/InseeFrLab/astrovision/issues"
