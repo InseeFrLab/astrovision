@@ -51,7 +51,7 @@ jobs:
         python-version: "3.x"
     - name: Install dependencies
       run: |
-        pip install -r requirements/tests.txt requirements/required.txt
+        pip install -r requirements/tests.txt -r requirements/required.txt
     - name: Cache dependencies
       uses: actions/cache@v3.3.2
       id: cache
@@ -65,7 +65,7 @@ jobs:
   build:
     name: Build package
     runs-on: ubuntu-latest
-    needs: 
+    needs:
       - black
       - flake8
       - pytest
@@ -89,7 +89,7 @@ jobs:
       with:
         name: python-package-distributions
         path: dist/
-  
+
   publish-to-testpypi:
     name: Publish package to TestPyPI
     needs:
