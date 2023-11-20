@@ -1,5 +1,5 @@
 matplotlib
 rasterio
 torch
-gdal
 affine
+gdal==3.4.1
