@@ -26,7 +26,8 @@ def generate_tiles_borders(height: int, width: int, tile_length: int) -> List:
 
     if (tile_length > height) | (tile_length > width):
         raise ValueError(
-            "The size of the tile should be smaller" "than the size of the original image."
+            "The size of the tile should be smaller"
+            "than the size of the original image."
         )
 
     indices = [
@@ -43,7 +44,9 @@ def generate_tiles_borders(height: int, width: int, tile_length: int) -> List:
     return indices
 
 
-def get_bounds_for_tile(transform: Affine, row_indices: Tuple, col_indices: Tuple) -> Tuple:
+def get_bounds_for_tile(
+    transform: Affine, row_indices: Tuple, col_indices: Tuple
+) -> Tuple:
     """
     Given an Affine transformation of a satellite image, and indices for a
     tile's row and column, returns the bounding coordinates (left, bottom,

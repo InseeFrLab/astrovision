@@ -5,7 +5,7 @@ from __future__ import annotations
 
 import os
 from datetime import date
-from typing import List, Literal, Optional
+from typing import List, Literal, Optional, Tuple
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -72,7 +72,7 @@ class SatelliteImage:
 
         tiles = [
             SatelliteImage(
-                array=self.array[:, rows[0] : rows[1], cols[0] : cols[1]],
+                array=self.array[:, rows[0] : rows[1], cols[0] : cols[1]],  # noqa
                 crs=self.crs,
                 bounds=get_bounds_for_tile(self.transform, rows, cols),
                 transform=get_transform_for_tile(self.transform, rows[0], cols[0]),
@@ -113,7 +113,9 @@ class SatelliteImage:
             SatelliteImage: Normalized image.
         """
         if quantile < 0.5 or quantile > 1:
-            raise ValueError("Value of the `quantile` parameter must be between 0.5 and 1.")
+            raise ValueError(
+                "Value of the `quantile` parameter must be between 0.5 and 1."
+            )
 
         normalized_bands = [
             rp.adjust_band(
@@ -150,8 +152,6 @@ class SatelliteImage:
             dep=self.dep,
             date=self.date,
         )
-
-        return copy_image
 
     def plot(self, bands_indices: List):
         """
@@ -223,7 +223,6 @@ class SatelliteImage:
             format (str): a string representing the raster type desired.
             proj: the projection to assign to the raser.
         """
-
         if format == "jp2":
             to_raster_jp2(self, file_path)
         elif format == "tif":
@@ -232,14 +231,13 @@ class SatelliteImage:
             raise ValueError('`format` must be either "jp2" or "tif".')
 
 
-def to_raster_jp2(self, directory_name: str, file_name: str):
+def to_raster_jp2(self, directory_name: str, file_path: str):
     """
     Save a SatelliteImage to a .jp2 raster file.
 
     Args:
         file_path (str): File path.
     """
-
     data = self.array
     crs = self.crs
     transform = self.transform
@@ -276,19 +274,27 @@ def to_raster_tif(self, file_path: str, proj=None) -> None:
         file_path (str): File path.
         proj: Projection to assign to the raster.
     """
-
     transform = self.transform
     array = self.array
 
     driver = gdal.GetDriverByName("GTiff")
     out_ds = driver.Create(
-        f"{filename}.tif",
+        f"{file_path}.tif",
         array.shape[2],
         array.shape[1],
         array.shape[0],
         gdal.GDT_Float64,
     )
-    out_ds.SetGeoTransform([transf[2], transf[0], transf[1], transf[5], transf[3], transf[4]])
+    out_ds.SetGeoTransform(
+        [
+            transform[2],
+            transform[0],
+            transform[1],
+            transform[5],
+            transform[3],
+            transform[4],
+        ]
+    )
     out_ds.SetProjection(proj)
 
     for j in range(array.shape[0]):
