@@ -51,6 +51,7 @@ jobs:
         python-version: "3.x"
     - name: Install dependencies
       run: |
+        pip install --upgrade pip
         pip install -r requirements/tests.txt -r requirements/required.txt
     - name: Cache dependencies
       uses: actions/cache@v3.3.2
