@@ -27,6 +27,9 @@ dependencies = [
     "affine",
 ]
 
+[tool.setuptools]
+packages = ["astrovision"]
+
 [project.optional-dependencies]
 test = [
     "black",
