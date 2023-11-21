@@ -55,7 +55,7 @@ jobs:
         pip install .
     - name: Test with pytest
       run: |
-        pytest tests/ --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+        pytest tests/ --doctest-modules --junitxml=junit/test-results.xml --cov-report=xml --cov-report=html
 
   build:
     name: Build package
