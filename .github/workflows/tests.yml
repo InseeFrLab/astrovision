@@ -50,7 +50,6 @@ jobs:
         ./install_gdal.sh
     - name: Install dependencies
       run: |
-        pip install --upgrade pip
         pip install -r requirements/tests.txt -r requirements/required.txt
     - name: Install astrovision package
       run: |
