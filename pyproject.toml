@@ -27,6 +27,9 @@ dependencies = [
     "affine",
 ]
 
+[tool.setuptools]
+packages = ["astrovision", "astrovision.data", "astrovision.plot"]
+
 [project.optional-dependencies]
 test = [
     "black",

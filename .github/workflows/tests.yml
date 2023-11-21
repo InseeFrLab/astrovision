@@ -1,11 +1,9 @@
-name: Publish astrovision package to TestPyPI
+name: Test astrovision package code
 
 on:
-  push:
+  pull_request:
     branches:
-      - 'main'
-    tags:
-      - "*"
+    - main
   workflow_dispatch:
 
 jobs:
@@ -59,55 +57,3 @@ jobs:
     - name: Test with pytest
       run: |
         pytest tests/ --doctest-modules --junitxml=junit/test-results.xml --cov-report=xml --cov-report=html
-
-  build:
-    name: Build package
-    runs-on: ubuntu-latest
-    needs:
-      - black
-      - flake8
-      - pytest
-
-    steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: "3.10"
-    - name: Install pypa/build
-      run: >-
-        python3 -m
-        pip install
-        build
-        --user
-    - name: Build a binary wheel and a source tarball
-      run: python3 -m build
-    - name: Store the distribution packages
-      uses: actions/upload-artifact@v3
-      with:
-        name: python-package-distributions
-        path: dist/
-
-  publish-to-testpypi:
-    name: Publish package to TestPyPI
-    needs:
-    - build
-    runs-on: ubuntu-latest
-
-    environment:
-      name: testpypi
-      url: https://test.pypi.org/p/astrovision
-
-    permissions:
-      id-token: write  # IMPORTANT: mandatory for trusted publishing
-
-    steps:
-    - name: Download all the dists
-      uses: actions/download-artifact@v3
-      with:
-        name: python-package-distributions
-        path: dist/
-    - name: Publish package to TestPyPI
-      uses: pypa/gh-action-pypi-publish@release/v1
-      with:
-        repository-url: https://test.pypi.org/legacy/

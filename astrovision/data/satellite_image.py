@@ -7,6 +7,7 @@ import os
 from datetime import date
 from typing import List, Literal, Optional, Tuple
 
+from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 import rasterio
@@ -211,8 +212,6 @@ class SatelliteImage:
     def to_raster(
         self,
         file_path: str,
-        format: Literal["jp2", "tif"] = "jp2",
-        proj=None,
     ) -> None:
         """
         Save a SatelliteImage to a raster file
@@ -220,85 +219,84 @@ class SatelliteImage:
 
         Args:
             file_path (str): File path.
-            format (str): a string representing the raster type desired.
-            proj: the projection to assign to the raser.
         """
-        if format == "jp2":
-            to_raster_jp2(self, file_path)
-        elif format == "tif":
-            to_raster_tif(self, file_path, proj)
+        file_format = Path(file_path).suffix
+        if file_format == ".jp2":
+            self.to_raster_jp2(file_path)
+        elif file_format == ".tif":
+            self.to_raster_tif(file_path)
         else:
-            raise ValueError('`format` must be either "jp2" or "tif".')
+            raise ValueError(
+                f'File format is {file_format} must be either ".jp2" or ".tif".'
+            )
 
+    def to_raster_jp2(self, file_path: str):
+        """
+        Save a SatelliteImage to a .jp2 raster file.
 
-def to_raster_jp2(self, directory_name: str, file_path: str):
-    """
-    Save a SatelliteImage to a .jp2 raster file.
+        Args:
+            file_path (str): File path.
+        """
+        data = self.array
+        crs = self.crs
+        transform = self.transform
+        n_bands = len(data)
 
-    Args:
-        file_path (str): File path.
-    """
-    data = self.array
-    crs = self.crs
-    transform = self.transform
-    n_bands = len(data)
+        # TODO: fix potential issue with the data type there.
+        # For now this will only work properly if the numpy
+        # array is uint16 ?
+        metadata = {
+            "dtype": "uint16",
+            "count": n_bands,
+            "width": data.shape[2],
+            "height": data.shape[1],
+            "crs": crs,
+            "transform": transform,
+            "driver": "JP2OpenJPEG",
+            "compress": "jp2k",
+            "interleave": "pixel",
+        }
 
-    # TODO: fix potential issue with the data type there.
-    # For now this will only work properly if the numpy
-    # array is uint16 ?
-    metadata = {
-        "dtype": "uint16",
-        "count": n_bands,
-        "width": data.shape[2],
-        "height": data.shape[1],
-        "crs": crs,
-        "transform": transform,
-        "driver": "JP2OpenJPEG",
-        "compress": "jp2k",
-        "interleave": "pixel",
-    }
+        dirname = os.path.dirname(file_path)
+        if not os.path.exists(dirname):
+            os.makedirs(dirname)
 
-    dirname = os.path.dirname(file_path)
-    if not os.path.exists(dirname):
-        os.makedirs(dirname)
+        with rasterio.open(file_path, "w", **metadata) as dst:
+            dst.write(data, indexes=np.arange(n_bands) + 1)
 
-    with rasterio.open(file_path, "w", **metadata) as dst:
-        dst.write(data, indexes=np.arange(n_bands) + 1)
+    def to_raster_tif(self, file_path: str) -> None:
+        """
+        Save a SatelliteImage to a .tif raster file.
 
+        Args:
+            file_path (str): File path.
+        """
+        transform = self.transform
+        array = self.array
+        crs = self.crs
 
-def to_raster_tif(self, file_path: str, proj=None) -> None:
-    """
-    Save a SatelliteImage to a .tif raster file.
+        driver = gdal.GetDriverByName("GTiff")
+        out_ds = driver.Create(
+            file_path,
+            array.shape[2],
+            array.shape[1],
+            array.shape[0],
+            gdal.GDT_Float64,
+        )
+        out_ds.SetGeoTransform(
+            [
+                transform[2],
+                transform[0],
+                transform[1],
+                transform[5],
+                transform[3],
+                transform[4],
+            ]
+        )
+        out_ds.SetProjection(crs.to_wkt())
 
-    Args:
-        file_path (str): File path.
-        proj: Projection to assign to the raster.
-    """
-    transform = self.transform
-    array = self.array
+        for j in range(array.shape[0]):
+            out_ds.GetRasterBand(j + 1).WriteArray(array[j, :, :])
 
-    driver = gdal.GetDriverByName("GTiff")
-    out_ds = driver.Create(
-        f"{file_path}.tif",
-        array.shape[2],
-        array.shape[1],
-        array.shape[0],
-        gdal.GDT_Float64,
-    )
-    out_ds.SetGeoTransform(
-        [
-            transform[2],
-            transform[0],
-            transform[1],
-            transform[5],
-            transform[3],
-            transform[4],
-        ]
-    )
-    out_ds.SetProjection(proj)
-
-    for j in range(array.shape[0]):
-        out_ds.GetRasterBand(j + 1).WriteArray(array[j, :, :])
-
-    out_ds = None
-    return
+        out_ds = None
+        return
