@@ -28,7 +28,7 @@ dependencies = [
 ]
 
 [tool.setuptools]
-packages = ["astrovision"]
+packages = ["astrovision", "astrovision.data", "astrovision.plot"]
 
 [project.optional-dependencies]
 test = [
