@@ -11,3 +11,7 @@ The compulsory Python library to work with satellite imagery.
 ```bash
 pip install astrovision
 ```
+
+## Documentation
+
+Documentation can be found here: https://inseefrlab.github.io/astrovision/.

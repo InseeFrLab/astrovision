@@ -9,7 +9,6 @@
 project = "astrovision"
 copyright = "2023, Raya Berova, Thomas Faria, Clément Guillo, Tom Seimandi"
 author = "Raya Berova, Thomas Faria, Clément Guillo, Tom Seimandi"
-release = "0.0.1"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
