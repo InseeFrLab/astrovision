@@ -34,7 +34,7 @@ jobs:
         poetry run flake8 . --count --show-source --statistics
 
   pytest:
-    name: Test package code
+    name: Run pytest check
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4

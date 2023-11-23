@@ -21,7 +21,6 @@ packages = [
 ]
 homepage = "https://github.com/InseeFrLab/astrovision"
 repository = "https://github.com/InseeFrLab/astrovision"
-documentation = "https://astrovision.readthedocs.io"
 
 [tool.poetry.dependencies]
 python = "^3.9"
