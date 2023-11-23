@@ -1,48 +1,50 @@
 [build-system]
-requires = ["setuptools >= 61.0"]
-build-backend = "setuptools.build_meta"
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
 
-[project]
+[tool.poetry]
 name = "astrovision"
-version = "0.0.2"
-authors = [
-  { name="Raya Berova", email="raya.berova@insee.fr" },
-  { name="Thomas Faria", email="thomas.faria@insee.fr" },
-  { name="Clément Guillo", email="clement.guillo@insee.fr" },
-  { name="Tom Seimandi", email="tom.seimandi@gmail.com" },
-]
+version = "0.1.0"
 description = "The compulsory Python library to work with satellite imagery."
+authors = [
+    "Raya Berova <raya.berova@insee.fr>",
+    "Thomas Faria <thomas.faria@insee.fr>",
+    "Clément Guillo <clement.guillo@insee.fr>",
+    "Tom Seimandi <tom.seimandi@gmail.com>"
+]
 readme = "README.md"
-requires-python = ">=3.8"
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
+license = "MIT"
+packages = [
+    {include = "astrovision"},
+    {include = "astrovision/data"},
+    {include = "astrovision/plot"}
 ]
-dependencies = [
-    "matplotlib",
-    "rasterio",
-    "torch",
-    "gdal",
-    "affine",
-]
+homepage = "https://github.com/InseeFrLab/astrovision"
+repository = "https://github.com/InseeFrLab/astrovision"
 
-[tool.setuptools]
-packages = ["astrovision", "astrovision.data", "astrovision.plot"]
+[tool.poetry.dependencies]
+python = "^3.9"
+matplotlib = "^3.8.2"
+rasterio = "^1.3.9"
+torch = "^2.1.1"
+affine = "^2.4.0"
+gdal = "3.4.1"
 
-[project.optional-dependencies]
-test = [
-    "black",
-    "isort",
-    "flake8",
-    "pre-commit",
-    "pytest",
-    "pytest-cov",
-]
+[tool.poetry.group.test]
 
-[project.urls]
-"Homepage" = "https://github.com/InseeFrLab/astrovision"
-"Bug Tracker" = "https://github.com/InseeFrLab/astrovision/issues"
+[tool.poetry.group.test.dependencies]
+black = "^23.11.0"
+flake8 = "^6.1.0"
+pytest = "^7.4.3"
+pytest-cov = "^4.1.0"
+pre-commit = "^3.5.0"
+
+[tool.poetry.group.docs]
+
+[tool.poetry.group.docs.dependencies]
+sphinx = "^7.2.6"
+myst-parser = "^2.0.0"
+sphinx-autoapi = "^3.0.0"
 
 [tool.isort]
 profile = "black"
