@@ -161,3 +161,6 @@ cython_debug/
 
 # Pytest outputs
 junit/
+
+# Poetry lock file
+poetry.lock

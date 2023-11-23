@@ -8,6 +8,7 @@ on:
 
 jobs:
   black:
+    name: Run black check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -16,16 +17,17 @@ jobs:
   flake8:
     name: Run flake8 check
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: "3.10"
-    - name: Install dependencies
+        python-version: "3.x"
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+    - name: Install test dependencies
       run: |
-        pip install -r requirements/tests.txt
+        poetry install --only test
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
@@ -34,26 +36,20 @@ jobs:
   pytest:
     name: Test package code
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: "3.10"
-    - name: Install numpy
-      run: |
-        pip install --upgrade pip
-        pip install numpy
+        python-version: "3.x"
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
     - name: Install GDAL
       run: |
         ./install_gdal.sh
-    - name: Install dependencies
+    - name: Install dependencies and package
       run: |
-        pip install -r requirements/tests.txt -r requirements/required.txt
-    - name: Install astrovision package
-      run: |
-        pip install -e .[test]
+        poetry install --without docs
     - name: Test with pytest
       run: |
         pytest tests/ --doctest-modules --junitxml=junit/test-results.xml --cov-report=xml --cov-report=html
