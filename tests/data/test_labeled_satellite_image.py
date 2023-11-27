@@ -43,14 +43,16 @@ def test_split(
     # 1st split
     tiles = segmentation_labeled_image.split(1000)
     assert len(tiles) == 4
+
     n_empty_tiles = 0
     n_single_one_tiles = 0
     n_other_tiles = 0
     for tile in tiles:
-        assert tile.array.shape == (3, 1000, 1000)
-        if not np.any(tile):
+        label = tile.label
+        assert label.shape == (1000, 1000)
+        if not np.any(label):
             n_empty_tiles += 1
-        elif tile.sum() == 1:
+        elif label.sum() == 1:
             n_single_one_tiles += 1
         else:
             n_other_tiles += 1
@@ -62,8 +64,15 @@ def test_split(
     tiles = segmentation_identity_labeled_image.split(1000)
     assert len(tiles) == 4
     for tile in tiles:
-        assert tile.array.shape == (3, 1000, 1000)
-        assert np.array_equal(
-            tile,
-            np.identity(1000)
+        label = tile.label
+        assert label.shape == (1000, 1000)
+        assert (
+            np.array_equal(
+                label,
+                np.identity(1000)
+            ) |
+            np.array_equal(
+                label,
+                np.zeros_like(label)
+            )
         )

@@ -6,11 +6,10 @@ task.
 from __future__ import annotations
 
 from datetime import datetime
-from typing import List, Literal, Tuple, Optional
+from typing import List, Literal, Optional
 
 import matplotlib.pyplot as plt
 import numpy as np
-from PIL import Image, ImageDraw
 
 from .satellite_image import SatelliteImage
 from .utils import generate_tiles_borders
@@ -40,7 +39,7 @@ class SegmentationLabeledSatelliteImage:
             source (Optional[Literal["RIL", "BDTOPO"]]): Labeling source.
             labeling_date (Optional[datetime]): Date of labeling data.
         """
-        if not np.all(label.isin(tuple(0, 1))):
+        if not np.all(np.isin(label, [0, 1])):
             raise ValueError(
                 "Label has values outside of 0 and 1."
             )
