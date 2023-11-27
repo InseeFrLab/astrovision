@@ -46,8 +46,10 @@ class SatelliteImage:
             crs (str): Coordinate Reference System.
             bounds (Tuple): Bounds for the satellite image.
             transform (Affine): Transform for the satellite image.
-            dep (Optional[Literal[DEPARTMENTS_LIST]]): French département of the image.
-            date (Optional[date]): Date of the satellite image. Defaults to None.
+            dep (Optional[Literal[DEPARTMENTS_LIST]]): French département
+                of the image. Defaults to None.
+            date (Optional[date]): Date of the satellite image. Defaults
+                to None.
         """
         self.array = array
         self.crs = crs
@@ -154,12 +156,12 @@ class SatelliteImage:
             date=self.date,
         )
 
-    def plot(self, bands_indices: List):
+    def plot(self, bands_indices: List[int]):
         """
         Plot a subset of bands from a 3D array as an image.
 
         Args:
-            bands_indices (List): List of indices of bands to plot.
+            bands_indices (List[int]): List of indices of bands to plot.
                 The indices should be integers between 0 and the
                 number of bands - 1.
         """
@@ -167,7 +169,6 @@ class SatelliteImage:
         ax.imshow(np.transpose(self.array, (1, 2, 0))[:, :, bands_indices])
         plt.xticks([])
         plt.yticks([])
-        plt.title(f"Dimension of image {self.array.shape[1:]}")
         plt.show()
 
         return plt.gcf()
