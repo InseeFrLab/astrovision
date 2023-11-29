@@ -66,6 +66,7 @@ jobs:
       url: https://pypi.org/p/astrovision
 
     permissions:
+      contents: read
       id-token: write  # IMPORTANT: mandatory for trusted publishing
 
     steps:
