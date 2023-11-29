@@ -17,8 +17,7 @@ def segmentation_labeled_image():
     label = np.zeros(satellite_image.array.shape[1:])
     label[0, 0] = 1
     segmentation_labeled_image = SegmentationLabeledSatelliteImage(
-        satellite_image=satellite_image,
-        label=label
+        satellite_image=satellite_image, label=label
     )
     return segmentation_labeled_image
 
@@ -30,16 +29,12 @@ def segmentation_identity_labeled_image():
     satellite_image = SatelliteImage.from_raster(path)
     label = np.identity(2000)
     segmentation_labeled_image = SegmentationLabeledSatelliteImage(
-        satellite_image=satellite_image,
-        label=label
+        satellite_image=satellite_image, label=label
     )
     return segmentation_labeled_image
 
 
-def test_split(
-    segmentation_labeled_image,
-    segmentation_identity_labeled_image
-):
+def test_split(segmentation_labeled_image, segmentation_identity_labeled_image):
     # 1st split
     tiles = segmentation_labeled_image.split(1000)
     assert len(tiles) == 4
@@ -66,13 +61,6 @@ def test_split(
     for tile in tiles:
         label = tile.label
         assert label.shape == (1000, 1000)
-        assert (
-            np.array_equal(
-                label,
-                np.identity(1000)
-            ) |
-            np.array_equal(
-                label,
-                np.zeros_like(label)
-            )
+        assert np.array_equal(label, np.identity(1000)) | np.array_equal(
+            label, np.zeros_like(label)
         )

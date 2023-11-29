@@ -40,19 +40,14 @@ class SegmentationLabeledSatelliteImage:
             labeling_date (Optional[datetime]): Date of labeling data.
         """
         if not np.all(np.isin(label, [0, 1])):
-            raise ValueError(
-                "Label has values outside of 0 and 1."
-            )
+            raise ValueError("Label has values outside of 0 and 1.")
 
         self.satellite_image = satellite_image
         self.label = label
         self.source = source
         self.labeling_date = labeling_date
 
-    def split(
-        self,
-        tile_length: int
-    ) -> List[SegmentationLabeledSatelliteImage]:
+    def split(self, tile_length: int) -> List[SegmentationLabeledSatelliteImage]:
         """
         Split the SegmentationLabeledSatelliteImage into labeled
         tiles of dimension (`tile_length` x `tile_length`).
@@ -72,16 +67,13 @@ class SegmentationLabeledSatelliteImage:
 
         indices = generate_tiles_borders(height, width, tile_length)
         label_tiles = [
-            self.label[rows[0]: rows[1], cols[0]: cols[1]]
+            self.label[rows[0] : rows[1], cols[0] : cols[1]]  # noqa: E203
             for rows, cols in indices
         ]
 
         labeled_tiles = [
             SegmentationLabeledSatelliteImage(
-                image,
-                label,
-                self.source,
-                self.labeling_date
+                image, label, self.source, self.labeling_date
             )
             for image, label in zip(tiles, label_tiles)
         ]
@@ -104,9 +96,7 @@ class SegmentationLabeledSatelliteImage:
         """
         fig, ax = plt.subplots(figsize=(5, 5))
         ax.imshow(
-            np.transpose(
-                self.satellite_image.array, (1, 2, 0)
-            )[:, :, bands_indices]
+            np.transpose(self.satellite_image.array, (1, 2, 0))[:, :, bands_indices]
         )
         ax.imshow(self.label, alpha=alpha)
         plt.xticks([])
@@ -130,9 +120,7 @@ class SegmentationLabeledSatelliteImage:
 
         fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 10))
         ax1.imshow(
-            np.transpose(
-                self.satellite_image.array, (1, 2, 0)
-            )[:, :, bands_indices]
+            np.transpose(self.satellite_image.array, (1, 2, 0))[:, :, bands_indices]
         )
         ax1.axis("off")
         ax2.imshow(label)
