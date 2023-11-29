@@ -47,6 +47,9 @@ jobs:
     - name: Install GDAL
       run: |
         ./install_gdal.sh
+    - name: Print GDAL version
+      run: |
+        gdalinfo --version
     - name: Install dependencies and package
       run: |
         poetry install --without docs
