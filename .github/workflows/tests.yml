@@ -49,7 +49,7 @@ jobs:
         ./install_gdal.sh
     - name: Install dependencies and package
       run: |
-        poetry install --without docs
+        poetry install --with test
     - name: Test with pytest
       run: |
         poetry run pytest tests/ --doctest-modules --junitxml=junit/test-results.xml --cov-report=xml --cov-report=html

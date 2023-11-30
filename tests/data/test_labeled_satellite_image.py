@@ -4,6 +4,7 @@ Tests for astrovision/data/labeled_satellite_image.py
 from astrovision.data.satellite_image import SatelliteImage
 from astrovision.data.labeled_satellite_image import (
     SegmentationLabeledSatelliteImage,
+    DetectionLabeledSatelliteImage,
 )
 import pytest
 import numpy as np
@@ -28,6 +29,18 @@ def segmentation_identity_labeled_image():
     # Shape is (3, 2000, 2000)
     satellite_image = SatelliteImage.from_raster(path)
     label = np.identity(2000)
+    segmentation_labeled_image = SegmentationLabeledSatelliteImage(
+        satellite_image=satellite_image, label=label
+    )
+    return segmentation_labeled_image
+
+
+@pytest.fixture
+def empty_segmentation_labeled_image():
+    path = "tests/test_data/ORT_2020052526656219_0499_8600_U38S_8Bits.jp2"
+    # Shape is (3, 2000, 2000)
+    satellite_image = SatelliteImage.from_raster(path)
+    label = np.zeros((2000, 2000))
     segmentation_labeled_image = SegmentationLabeledSatelliteImage(
         satellite_image=satellite_image, label=label
     )
@@ -64,3 +77,66 @@ def test_split(segmentation_labeled_image, segmentation_identity_labeled_image):
         assert np.array_equal(label, np.identity(1000)) | np.array_equal(
             label, np.zeros_like(label)
         )
+
+
+def test_segmentation_to_classification(
+    segmentation_labeled_image, empty_segmentation_labeled_image
+):
+    classification_label = (
+        segmentation_labeled_image.to_classification_labeled_image().label
+    )
+    assert classification_label == 1
+
+    classification_label = (
+        empty_segmentation_labeled_image.to_classification_labeled_image().label
+    )
+    assert classification_label == 0
+
+
+@pytest.fixture
+def detection_labeled_image():
+    path = "tests/test_data/ORT_2020052526656219_0499_8600_U38S_8Bits.jp2"
+    # Shape is (3, 2000, 2000)
+    satellite_image = SatelliteImage.from_raster(path)
+    label = [(10, 10, 20, 20)]
+    labeled_image = DetectionLabeledSatelliteImage(
+        satellite_image=satellite_image, label=label
+    )
+    return labeled_image
+
+
+@pytest.fixture
+def empty_detection_labeled_image():
+    path = "tests/test_data/ORT_2020052526656219_0499_8600_U38S_8Bits.jp2"
+    # Shape is (3, 2000, 2000)
+    satellite_image = SatelliteImage.from_raster(path)
+    label = []
+    labeled_image = DetectionLabeledSatelliteImage(
+        satellite_image=satellite_image, label=label
+    )
+    return labeled_image
+
+
+def test_wrong_detection_label():
+    path = "tests/test_data/ORT_2020052526656219_0499_8600_U38S_8Bits.jp2"
+    # Shape is (3, 2000, 2000)
+    satellite_image = SatelliteImage.from_raster(path)
+    label = [(5, 7, 2000, 9)]
+    with pytest.raises(Exception):
+        labeled_image = DetectionLabeledSatelliteImage(
+            satellite_image=satellite_image, label=label
+        )
+
+
+def test_detection_to_classification(
+    detection_labeled_image, empty_detection_labeled_image
+):
+    classification_label = (
+        detection_labeled_image.to_classification_labeled_image().label
+    )
+    assert classification_label == 1
+
+    classification_label = (
+        empty_detection_labeled_image.to_classification_labeled_image().label
+    )
+    assert classification_label == 0
