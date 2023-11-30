@@ -53,3 +53,28 @@ jobs:
     - name: Test with pytest
       run: |
         poetry run pytest tests/ --doctest-modules --junitxml=junit/test-results.xml --cov-report=xml --cov-report=html
+
+  version:
+    name: Run version check
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.10"
+    - name: Check package version
+      run: |
+        # Fetch the latest version from PyPI
+        pypi_version=$(python -c "import requests; print(requests.get('https://pypi.org/pypi/astrovision/json').json()['info']['version'])")
+
+        # Extract the version from your repository
+        repo_version=$(awk -F'"' '/^version/ {print $2}' "pyproject.toml")
+
+        # Compare the versions
+        if dpkg --compare-versions "$pypi_version" "ge" "$repo_version"; then
+            echo "Error: the repository package version has not been updated."
+            exit 1
+        else
+            echo "Version has been updated."
+        fi
