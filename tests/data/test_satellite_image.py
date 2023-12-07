@@ -22,6 +22,19 @@ def test_from_raster(satellite_image):
     assert satellite_image.array.shape == (3, 2000, 2000)
 
 
+def test_channels_last(satellite_image):
+    path = "tests/test_data/ORT_2020052526656219_0499_8600_U38S_8Bits.jp2"
+    satellite_image = SatelliteImage.from_raster(path, channels_first=False)
+    assert satellite_image.array.shape == (2000, 2000, 3)
+
+
+def test_cast_to_float(satellite_image):
+    path = "tests/test_data/ORT_2020052526656219_0499_8600_U38S_8Bits.jp2"
+    satellite_image = SatelliteImage.from_raster(path, cast_to_float=True)
+    assert np.issubdtype(satellite_image.array.dtype, np.floating)
+    assert np.all((satellite_image.array >= 0) & (satellite_image.array <= 1))
+
+
 def test_split(satellite_image):
     # 1st split
     tiles = satellite_image.split(1000)

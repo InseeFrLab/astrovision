@@ -179,6 +179,8 @@ class SatelliteImage:
         dep: Optional[Literal[DEPARTMENTS_LIST]] = None,
         date: Optional[date] = None,
         n_bands: int = 3,
+        channels_first: bool = True,
+        cast_to_float: bool = False,
     ) -> SatelliteImage:
         """
         Factory method to create a Satellite image from a raster file.
@@ -188,15 +190,27 @@ class SatelliteImage:
             dep (Optional[Literal[DEPARTMENTS_LIST]]): Département.
             date (Optional[date]): Date. Defaults to None.
             n_bands (int): Number of bands.
+            channels_first (bool): True if channels should be moved
+                to first axis.
+            cast_to_float (bool): True to cast array to float.
 
         Returns:
             SatelliteImage: Satellite image.
         """
         with rasterio.open(file_path) as raster:
+            out_shape = (n_bands, raster.height, raster.width)
             array = raster.read(
                 [i for i in range(1, n_bands + 1)],
-                out_shape=(n_bands, raster.height, raster.width),
+                out_shape=out_shape,
             )
+            if not channels_first:
+                array = array.reshape((raster.height, raster.width, n_bands))
+
+            if cast_to_float:
+                if np.issubdtype(array.dtype, np.integer):
+                    array = np.uint8(array)
+                    array = array.astype(float) / 255.0
+
             crs = raster.crs
             bounds = raster.bounds
             transform = raster.transform
@@ -228,7 +242,7 @@ class SatelliteImage:
             self.to_raster_tif(file_path)
         else:
             raise ValueError(
-                f'File format is {file_format} must be either ".jp2" or ".tif".'
+                f"File format is {file_format} must " f'be either ".jp2" or ".tif".'
             )
 
     def to_raster_jp2(self, file_path: str):
