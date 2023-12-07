@@ -83,7 +83,7 @@ def get_transform_for_tile(transform: Tuple, row_off: int, col_off: int) -> Tupl
         col_off (int): Minimum column index of the tile.
 
     Returns:
-        Affine: The affine transform matrix for the given tile.
+        Tuple: The transform matrix for the given tile.
     """
 
     transform = list(transform)
