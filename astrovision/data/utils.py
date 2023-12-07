@@ -1,9 +1,8 @@
 """
 Util functions for the data module.
 """
-from affine import Affine
 from typing import List, Tuple
-import rasterio
+import numpy as np
 
 
 def generate_tiles_borders(height: int, width: int, tile_length: int) -> List:
@@ -45,15 +44,15 @@ def generate_tiles_borders(height: int, width: int, tile_length: int) -> List:
 
 
 def get_bounds_for_tile(
-    transform: Affine, row_indices: Tuple, col_indices: Tuple
+    transform: Tuple, row_indices: Tuple, col_indices: Tuple
 ) -> Tuple:
     """
-    Given an Affine transformation of a satellite image, and indices for a
+    Given an transformation of a satellite image, and indices for a
     tile's row and column, returns the bounding coordinates (left, bottom,
     right, top) of the tile.
 
     Args:
-        transform: An Affine transformation
+        transform (Tuple): An affine transformation
         row_indices (Tuple): A tuple containing the minimum and maximum
             indices for the tile's row.
         col_indices (Tuple): A tuple containing the minimum and maximum
@@ -69,12 +68,12 @@ def get_bounds_for_tile(
     col_min = col_indices[0]
     col_max = col_indices[1]
 
-    left, bottom = transform * (col_min, row_max)
-    right, top = transform * (col_max, row_min)
-    return rasterio.coords.BoundingBox(left, bottom, right, top)
+    left, bottom = tuple(transform[5] * np.array([col_min, row_max]) + np.array([transform[0], transform[3]]))
+    right, top = tuple(transform[1] * np.array([col_max, row_min]) + np.array([transform[0], transform[3]]))
+    return (left, bottom, right, top)
 
 
-def get_transform_for_tile(transform: Affine, row_off: int, col_off: int) -> Affine:
+def get_transform_for_tile(transform: Tuple, row_off: int, col_off: int) -> Tuple:
     """
     Compute the transform matrix of a tile.
 
@@ -87,5 +86,7 @@ def get_transform_for_tile(transform: Affine, row_off: int, col_off: int) -> Aff
         Affine: The affine transform matrix for the given tile.
     """
 
-    x, y = transform * (col_off, row_off)
-    return Affine.translation(x - transform.c, y - transform.f) * transform
+    transform = list(transform)
+    transform[3] = transform[3] + transform[5] * row_off
+    transform[0] = transform[0] + transform[1] * col_off
+    return tuple(transform)
