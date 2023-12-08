@@ -68,8 +68,14 @@ def get_bounds_for_tile(
     col_min = col_indices[0]
     col_max = col_indices[1]
 
-    left, bottom = tuple(transform[5] * np.array([col_min, row_max]) + np.array([transform[0], transform[3]]))
-    right, top = tuple(transform[1] * np.array([col_max, row_min]) + np.array([transform[0], transform[3]]))
+    left, bottom = tuple(
+        transform[5] * np.array([col_min, row_max])
+        + np.array([transform[0], transform[3]])
+    )
+    right, top = tuple(
+        transform[1] * np.array([col_max, row_min])
+        + np.array([transform[0], transform[3]])
+    )
     return (left, bottom, right, top)
 
 

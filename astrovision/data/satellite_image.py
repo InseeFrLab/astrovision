@@ -210,11 +210,12 @@ class SatelliteImage:
         crs = ds.GetProjection()
         transform = ds.GetGeoTransform()
 
-        bounds = (transform[0],  # left
-                  transform[3] + transform[5] * ds.RasterYSize,  # bottom
-                  transform[0] + transform[1] * ds.RasterXSize,  # right
-                  transform[3]  # top
-                  )
+        bounds = (
+            transform[0],  # left
+            transform[3] + transform[5] * ds.RasterYSize,  # bottom
+            transform[0] + transform[1] * ds.RasterXSize,  # right
+            transform[3],  # top
+        )
 
         return SatelliteImage(
             array,
