@@ -57,7 +57,7 @@ def test_generate_tiles_borders_large_image():
 
 
 def test_get_bounds_for_tile():
-    transform = (1, 1, 0, 5, 1, 0)
+    transform = (1, 1, 0, 5, 0, 1)
     row_indices = (1, 2)
     col_indices = (0, 1)
     bounds = get_bounds_for_tile(transform, row_indices, col_indices)
@@ -67,10 +67,10 @@ def test_get_bounds_for_tile():
 
 
 def test_get_transform_for_tile():
-    transform = (1, 1, 0, 1, 1, 0)
+    transform = (1, 1, 0, 1, 0, 1)
     col = 2
     row = 2
 
     tile_transform = get_transform_for_tile(transform, row, col)
-    awaited_tile_transform = (3, 1, 0, 3, 1, 0)
+    awaited_tile_transform = (3, 1, 0, 3, 0, 1)
     assert tile_transform == awaited_tile_transform
