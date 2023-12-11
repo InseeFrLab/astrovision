@@ -46,7 +46,6 @@ jobs:
       uses: snok/install-poetry@v1
     - name: Install GDAL
       run: |
-        pip install numpy
         ./install_gdal.sh
     - name: Install dependencies and package
       run: |
