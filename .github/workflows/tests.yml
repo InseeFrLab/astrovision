@@ -51,9 +51,14 @@ jobs:
         conda install -c conda-forge -n test poetry -y
     - name: Show conda dependencies
       run: |
+        conda activate test
         conda info
         conda list
-    - run: ls $CONDA/envs/test/bin
+    - name: Show conda dependencies
+      run: |
+        conda activate test
+        conda info
+        conda list
     - name: Add poetry to PATH
       run: |
         export PATH="$PATH:$CONDA/envs/test/bin"
