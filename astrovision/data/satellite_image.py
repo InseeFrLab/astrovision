@@ -15,6 +15,9 @@ import rasterio
 import rasterio.plot as rp
 import torch
 from osgeo import gdal
+import pyproj
+from shapely.geometry import box, Polygon
+from shapely.ops import transform
 
 from .constants import DEPARTMENTS_LIST
 from .utils import (
@@ -319,3 +322,50 @@ class SatelliteImage:
 
         out_ds = None
         return
+
+    def intersects_box(self, box_bounds: Tuple, crs: str) -> bool:
+        """
+        Return True if image intersects a bounding box specified by
+        `box_bounds` and a `crs`.
+
+        Args:
+            box_bounds (Tuple): Box bounds.
+            crs (str): Projection system.
+
+        Returns:
+            bool: Boolean.
+        """
+        if crs != self.crs:
+            source_crs = pyproj.CRS(crs)
+            target_crs = pyproj.CRS(self.crs)
+            bbox_geometry = box(*transform(source_crs, target_crs, *box_bounds))
+        else:
+            bbox_geometry = box(*box_bounds)
+        image_geometry = box(*self.bounds)
+
+        return image_geometry.intersects(bbox_geometry)
+
+    def intersects_polygon(self, polygon_geometry: Polygon, crs: str) -> bool:
+        """
+        Return True if image intersects a polygon.
+
+        Args:
+            box_bounds (Tuple): Polygon geometry.
+            crs (str): Projection system.
+
+        Returns:
+            bool: Boolean.
+        """
+        if crs != self.crs:
+            source_crs = pyproj.Proj(init=self.crs)
+            target_crs = pyproj.Proj(init=crs)
+            image_geometry = box(*self.bounds)
+
+            transformer = pyproj.Transformer.from_proj(
+                source_crs,
+                target_crs,
+            )
+            image_geometry = transform(transformer.transform, image_geometry)
+        else:
+            image_geometry = box(*self.bounds)
+        return image_geometry.intersects(polygon_geometry)
