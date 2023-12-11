@@ -55,8 +55,7 @@ jobs:
         conda list
     - name: Add poetry to PATH
       run: |
-        which poetry
-        export PATH="$PATH:/usr/share/miniconda/envs/test/bin"
+        export PATH="$PATH:$CONDA/envs/test/bin"
     - name: Install dependencies and package
       run: |
         poetry install --with test
