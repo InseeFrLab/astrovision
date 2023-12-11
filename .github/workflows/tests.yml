@@ -49,10 +49,14 @@ jobs:
     - name: Install Poetry
       run: |
         conda install -c conda-forge poetry -y
+    - name: Show conda dependencies
+      run: |
+        conda info
+        conda list
+    - name: Add poetry to PATH
+      run: |
         which poetry
         export PATH="$PATH:/usr/share/miniconda/envs/test/bin"
-    - name: Show conda dependencies
-      run: conda list
     - name: Install dependencies and package
       run: |
         poetry install --with test
