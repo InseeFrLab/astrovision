@@ -53,6 +53,7 @@ jobs:
       run: |
         conda info
         conda list
+    - run: ls $CONDA/envs/test/bin
     - name: Add poetry to PATH
       run: |
         export PATH="$PATH:$CONDA/envs/test/bin"
