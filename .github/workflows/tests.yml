@@ -42,7 +42,7 @@ jobs:
       with:
         python-version: "3.10"
         channels: conda-forge
-        activate-environment: test
+        activate-environment: "test"
     - name: Install GDAL
       run: |
         conda install -c conda-forge -n test gdal -y
@@ -51,12 +51,15 @@ jobs:
         conda install -c conda-forge -n test poetry -y
     - name: Show conda dependencies
       run: |
-        conda activate test
         conda info
         conda list
     - name: Show conda dependencies
       run: |
-        conda activate test
+        conda activate "test"
+        conda info
+        conda list
+    - name: Show conda dependencies
+      run: |
         conda info
         conda list
     - name: Add poetry to PATH
