@@ -48,7 +48,7 @@ jobs:
         conda install -c conda-forge gdal -y
     - name: Install Poetry
       run: |
-        pip install poetry
+        conda install -c conda-forge poetry -y
     - name: Show conda dependencies
       run: conda list
     - name: Install dependencies and package
