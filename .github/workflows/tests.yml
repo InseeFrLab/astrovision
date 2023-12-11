@@ -38,19 +38,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: "3.10"
     - uses: conda-incubator/setup-miniconda@v3
       with:
+        python-version: 3.10
         auto-activate-base: true
         activate-environment: ""
     - name: Install GDAL
       run: |
         conda install -c conda-forge gdal -y
     - name: Install Poetry
-      uses: snok/install-poetry@v1
+      run: |
+        conda install -c conda-forge poetry -y
     - name: Install dependencies and package
       run: |
         poetry install --with test
