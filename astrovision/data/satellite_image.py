@@ -7,6 +7,7 @@ import os
 from datetime import date
 from typing import List, Literal, Optional, Tuple
 
+from affine import Affine
 from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
@@ -14,7 +15,6 @@ import rasterio
 import rasterio.plot as rp
 import torch
 from osgeo import gdal
-from affine import Affine
 
 from .constants import DEPARTMENTS_LIST
 from .utils import (
@@ -197,23 +197,26 @@ class SatelliteImage:
         Returns:
             SatelliteImage: Satellite image.
         """
-        with rasterio.open(file_path) as raster:
-            out_shape = (n_bands, raster.height, raster.width)
-            array = raster.read(
-                [i for i in range(1, n_bands + 1)],
-                out_shape=out_shape,
-            )
-            if not channels_first:
-                array = array.reshape((raster.height, raster.width, n_bands))
+        ds = gdal.Open(file_path)
+        array = ds.ReadAsArray()
 
-            if cast_to_float:
-                if np.issubdtype(array.dtype, np.integer):
-                    array = np.uint8(array)
-                    array = array.astype(float) / 255.0
+        if not channels_first:
+            array = np.transpose(array, [1, 2, 0])
 
-            crs = raster.crs
-            bounds = raster.bounds
-            transform = raster.transform
+        if cast_to_float:
+            if np.issubdtype(array.dtype, np.integer):
+                array = np.uint8(array)
+                array = array.astype(float) / 255.0
+
+        crs = ds.GetProjection()
+        transform = ds.GetGeoTransform()
+        bounds = (
+            transform[0],  # left
+            transform[3] + transform[5] * ds.RasterYSize,  # bottom
+            transform[0] + transform[1] * ds.RasterXSize,  # right
+            transform[3],  # top
+        )
+        transform = Affine.from_gdal(*transform)
 
         return SatelliteImage(
             array,
@@ -276,6 +279,7 @@ class SatelliteImage:
         if not os.path.exists(dirname):
             os.makedirs(dirname)
 
+        # Use Gdal here to remove rasterio dependency
         with rasterio.open(file_path, "w", **metadata) as dst:
             dst.write(data, indexes=np.arange(n_bands) + 1)
 

@@ -36,17 +36,19 @@ jobs:
   pytest:
     name: Run pytest check
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python
-      uses: actions/setup-python@v4
+    - uses: conda-incubator/setup-miniconda@v3
       with:
+        activate-environment: "test"
         python-version: "3.10"
-    - name: Install Poetry
-      uses: snok/install-poetry@v1
-    - name: Install GDAL
+        channels: conda-forge
+    - name: Install GDAL and Poetry
       run: |
-        ./install_gdal.sh
+        conda install -n test gdal poetry -y
     - name: Install dependencies and package
       run: |
         poetry install --with test

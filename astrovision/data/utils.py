@@ -48,12 +48,12 @@ def get_bounds_for_tile(
     transform: Affine, row_indices: Tuple, col_indices: Tuple
 ) -> Tuple:
     """
-    Given an Affine transformation of a satellite image, and indices for a
+    Given a transformation of a satellite image, and indices for a
     tile's row and column, returns the bounding coordinates (left, bottom,
     right, top) of the tile.
 
     Args:
-        transform: An Affine transformation
+        transform (Affine): An affine transformation
         row_indices (Tuple): A tuple containing the minimum and maximum
             indices for the tile's row.
         col_indices (Tuple): A tuple containing the minimum and maximum
@@ -84,8 +84,7 @@ def get_transform_for_tile(transform: Affine, row_off: int, col_off: int) -> Aff
         col_off (int): Minimum column index of the tile.
 
     Returns:
-        Affine: The affine transform matrix for the given tile.
+        Affine: The transform matrix for the given tile.
     """
-
     x, y = transform * (col_off, row_off)
     return Affine.translation(x - transform.c, y - transform.f) * transform
