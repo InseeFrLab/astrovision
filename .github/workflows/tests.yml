@@ -44,17 +44,26 @@ jobs:
         python-version: "3.10"
     - uses: conda-incubator/setup-miniconda@v3
       with:
-        auto-activate-base: true
-        activate-environment: ""
+        python-version: "3.10"
+    - name: Create Conda environment
+      run: |
+        conda create -n testenv python=3.10
+        conda activate testenv
     - name: Install GDAL
       run: |
         conda install -c conda-forge gdal -y
     - name: Install Poetry
       run: |
-        conda install -c conda-forge poetry -y
+        pip install poetry
+    - name: Show conda dependencies
+      run: conda list
     - name: Install dependencies and package
       run: |
         poetry install --with test
+    - name: Show final conda dependencies
+      run: conda list
+    - name: Show Poetry dependencies
+      run: poetry show
     - name: Test with pytest
       run: |
         poetry run pytest tests/ --doctest-modules --junitxml=junit/test-results.xml --cov-report=xml --cov-report=html
