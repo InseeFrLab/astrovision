@@ -7,6 +7,7 @@ import os
 from datetime import date
 from typing import List, Literal, Optional, Tuple
 
+from affine import Affine
 from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
@@ -33,7 +34,7 @@ class SatelliteImage:
         array: np.array,
         crs: str,
         bounds: Tuple,
-        transform: Tuple,
+        transform: Affine,
         dep: Optional[Literal[DEPARTMENTS_LIST]] = None,
         date: Optional[date] = None,
     ):
@@ -44,7 +45,7 @@ class SatelliteImage:
             array (np.array): Image array. Assumes (C, H, W) format.
             crs (str): Coordinate Reference System.
             bounds (Tuple): Bounds for the satellite image.
-            transform (Tuple): Transform for the satellite image.
+            transform (Affine): Transform for the satellite image.
             dep (Optional[Literal[DEPARTMENTS_LIST]]): French département
                 of the image. Defaults to None.
             date (Optional[date]): Date of the satellite image. Defaults
@@ -209,13 +210,13 @@ class SatelliteImage:
 
         crs = ds.GetProjection()
         transform = ds.GetGeoTransform()
-
         bounds = (
             transform[0],  # left
             transform[3] + transform[5] * ds.RasterYSize,  # bottom
             transform[0] + transform[1] * ds.RasterXSize,  # right
             transform[3],  # top
         )
+        transform = Affine.from_gdal(*transform)
 
         return SatelliteImage(
             array,
