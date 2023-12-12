@@ -4,7 +4,7 @@ The compulsory Python library to work with satellite imagery.
 
 ## Pre-requisites
 
-`GDAL` must be installed.
+`GDAL` must be installed (`source install_gdal.sh`).
 
 ## Installation
 
