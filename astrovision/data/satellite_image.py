@@ -15,6 +15,10 @@ import rasterio
 import rasterio.plot as rp
 import torch
 from osgeo import gdal
+import pyproj
+from pyproj.crs import CRS
+from shapely.geometry import box, Polygon
+from shapely.ops import transform
 
 from .constants import DEPARTMENTS_LIST
 from .utils import (
@@ -199,7 +203,6 @@ class SatelliteImage:
         """
         ds = gdal.Open(file_path)
         array = ds.ReadAsArray()
-
         if not channels_first:
             array = np.transpose(array, [1, 2, 0])
 
@@ -208,7 +211,10 @@ class SatelliteImage:
                 array = np.uint8(array)
                 array = array.astype(float) / 255.0
 
-        crs = ds.GetProjection()
+        spatial_ref = ds.GetSpatialRef()
+        crs = CRS.from_wkt(spatial_ref.ExportToWkt())
+        crs_epsg = f"EPSG:{crs.to_epsg()}"
+
         transform = ds.GetGeoTransform()
         bounds = (
             transform[0],  # left
@@ -220,7 +226,7 @@ class SatelliteImage:
 
         return SatelliteImage(
             array,
-            crs,
+            crs_epsg,
             bounds,
             transform,
             dep,
@@ -319,3 +325,49 @@ class SatelliteImage:
 
         out_ds = None
         return
+
+    def intersects_box(self, box_bounds: Tuple, crs: str) -> bool:
+        """
+        Return True if image intersects a bounding box specified by
+        `box_bounds` and a `crs`.
+
+        Args:
+            box_bounds (Tuple): Box bounds.
+            crs (str): Projection system.
+
+        Returns:
+            bool: Boolean.
+        """
+        image_geometry = box(*self.bounds)
+        bbox_geometry = box(*box_bounds)
+        if crs != self.crs:
+            source_crs = pyproj.CRS(crs)
+            target_crs = pyproj.CRS(self.crs)
+            transformer = pyproj.Transformer.from_proj(
+                source_crs,
+                target_crs,
+            )
+            bbox_geometry = transform(transformer.transform, bbox_geometry)
+        return image_geometry.intersects(bbox_geometry)
+
+    def intersects_polygon(self, polygon_geometry: Polygon, crs: str) -> bool:
+        """
+        Return True if image intersects a polygon.
+
+        Args:
+            box_bounds (Tuple): Polygon geometry.
+            crs (str): Projection system.
+
+        Returns:
+            bool: Boolean.
+        """
+        image_geometry = box(*self.bounds)
+        if crs != self.crs:
+            source_crs = pyproj.Proj(self.crs)
+            target_crs = pyproj.Proj(crs)
+            transformer = pyproj.Transformer.from_proj(
+                source_crs,
+                target_crs,
+            )
+            image_geometry = transform(transformer.transform, image_geometry)
+        return image_geometry.intersects(polygon_geometry)

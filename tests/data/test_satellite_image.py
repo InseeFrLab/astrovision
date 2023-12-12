@@ -4,6 +4,8 @@ Tests for astrovision/data/satellite_image.py
 from astrovision.data.satellite_image import (
     SatelliteImage,
 )
+from osgeo import ogr
+from shapely.wkt import loads
 import tempfile
 import pytest
 from pathlib import Path
@@ -14,6 +16,13 @@ import numpy as np
 @pytest.fixture
 def satellite_image():
     path = "tests/test_data/ORT_2020052526656219_0499_8600_U38S_8Bits.jp2"
+    satellite_image = SatelliteImage.from_raster(path)
+    return satellite_image
+
+
+@pytest.fixture
+def satellite_image_land():
+    path = "tests/test_data/ORT_2020052526656219_0509_8593_U38S_8Bits.jp2"
     satellite_image = SatelliteImage.from_raster(path)
     return satellite_image
 
@@ -94,3 +103,66 @@ def test_to_raster(satellite_image):
         # read_image = SatelliteImage.from_raster(file_name)
         # assert isinstance(read_image, SatelliteImage)
         # assert read_image.array.shape == (3, 2000, 2000)
+
+
+def test_intersects_box_1(
+    satellite_image,
+):
+    box_bounds = satellite_image.bounds
+    crs = satellite_image.crs
+    assert satellite_image.intersects_box(box_bounds=box_bounds, crs=crs)
+
+
+def test_intersects_box_2(
+    satellite_image,
+    satellite_image_land,
+):
+    box_bounds = satellite_image_land.bounds
+    crs = satellite_image_land.crs
+    assert not satellite_image.intersects_box(box_bounds=box_bounds, crs=crs)
+
+
+def test_intersects_polygon_1(
+    satellite_image_land,
+):
+    # Data source
+    driver_name = "ESRI Shapefile"
+    driver = ogr.GetDriverByName(driver_name)
+    shapefile_path = "tests/test_data/adminexpress/971/REGION.shp"
+    ds = driver.Open(shapefile_path, 0)
+    layer = ds.GetLayer()
+    feature = layer.GetNextFeature()
+    ogr_geometry = feature.GetGeometryRef()
+
+    # Geometry to shapely
+    geometry_wkt = ogr_geometry.ExportToWkt()
+    geometry = loads(geometry_wkt)
+
+    # Projection
+    crs = "EPSG:5490"  # For Guadeloupe
+
+    assert not satellite_image_land.intersects_polygon(
+        polygon_geometry=geometry, crs=crs
+    )
+
+
+def test_intersects_polygon_2(
+    satellite_image_land,
+):
+    # Data source
+    driver_name = "ESRI Shapefile"
+    driver = ogr.GetDriverByName(driver_name)
+    shapefile_path = "tests/test_data/adminexpress/976/REGION.shp"
+    ds = driver.Open(shapefile_path, 0)
+    layer = ds.GetLayer()
+    feature = layer.GetNextFeature()
+    ogr_geometry = feature.GetGeometryRef()
+
+    # Geometry to shapely
+    geometry_wkt = ogr_geometry.ExportToWkt()
+    geometry = loads(geometry_wkt)
+
+    # Projection
+    crs = "EPSG:4471"  # For Mayotte
+
+    assert satellite_image_land.intersects_polygon(polygon_geometry=geometry, crs=crs)
