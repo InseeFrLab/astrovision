@@ -16,6 +16,7 @@ import rasterio.plot as rp
 import torch
 from osgeo import gdal
 import pyproj
+from pyproj.crs import CRS
 from shapely.geometry import box, Polygon
 from shapely.ops import transform
 
@@ -202,7 +203,6 @@ class SatelliteImage:
         """
         ds = gdal.Open(file_path)
         array = ds.ReadAsArray()
-
         if not channels_first:
             array = np.transpose(array, [1, 2, 0])
 
@@ -211,7 +211,10 @@ class SatelliteImage:
                 array = np.uint8(array)
                 array = array.astype(float) / 255.0
 
-        crs = ds.GetProjection()
+        spatial_ref = ds.GetSpatialRef()
+        crs = CRS.from_wkt(spatial_ref.ExportToWkt())
+        crs_epsg = f"EPSG:{crs.to_epsg()}"
+
         transform = ds.GetGeoTransform()
         bounds = (
             transform[0],  # left
@@ -223,7 +226,7 @@ class SatelliteImage:
 
         return SatelliteImage(
             array,
-            crs,
+            crs_epsg,
             bounds,
             transform,
             dep,
@@ -335,14 +338,16 @@ class SatelliteImage:
         Returns:
             bool: Boolean.
         """
+        image_geometry = box(*self.bounds)
+        bbox_geometry = box(*box_bounds)
         if crs != self.crs:
             source_crs = pyproj.CRS(crs)
             target_crs = pyproj.CRS(self.crs)
-            bbox_geometry = box(*transform(source_crs, target_crs, *box_bounds))
-        else:
-            bbox_geometry = box(*box_bounds)
-        image_geometry = box(*self.bounds)
-
+            transformer = pyproj.Transformer.from_proj(
+                source_crs,
+                target_crs,
+            )
+            bbox_geometry = transform(transformer.transform, bbox_geometry)
         return image_geometry.intersects(bbox_geometry)
 
     def intersects_polygon(self, polygon_geometry: Polygon, crs: str) -> bool:
@@ -356,16 +361,13 @@ class SatelliteImage:
         Returns:
             bool: Boolean.
         """
+        image_geometry = box(*self.bounds)
         if crs != self.crs:
-            source_crs = pyproj.Proj(init=self.crs)
-            target_crs = pyproj.Proj(init=crs)
-            image_geometry = box(*self.bounds)
-
+            source_crs = pyproj.Proj(self.crs)
+            target_crs = pyproj.Proj(crs)
             transformer = pyproj.Transformer.from_proj(
                 source_crs,
                 target_crs,
             )
             image_geometry = transform(transformer.transform, image_geometry)
-        else:
-            image_geometry = box(*self.bounds)
         return image_geometry.intersects(polygon_geometry)
