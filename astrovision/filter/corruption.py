@@ -8,7 +8,7 @@ from ..data import SatelliteImage
 
 def is_corrupted(
     image: SatelliteImage,
-    black_value_threshold: int = 100,
+    black_value_threshold: int = 25,
     black_area_threshold: float = 0.5,
 ) -> bool:
     """
@@ -43,7 +43,7 @@ def is_corrupted(
 
 def filter_corrupted(
     satellite_images: List[SatelliteImage],
-    black_value_threshold: int = 100,
+    black_value_threshold: int = 25,
     black_area_threshold: float = 0.5,
 ) -> List[SatelliteImage]:
     """
@@ -56,6 +56,8 @@ def filter_corrupted(
     """
     corrupted_images = []
     for satellite_image in satellite_images:
-        if is_corrupted(satellite_image, black_value_threshold, black_area_threshold):
+        if not is_corrupted(
+            satellite_image, black_value_threshold, black_area_threshold
+        ):
             corrupted_images.append(satellite_image)
     return corrupted_images
