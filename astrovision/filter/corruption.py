@@ -27,7 +27,9 @@ def is_corrupted(
         bool: True if image is corrupted, False otherwise.
     """
     # Convert the RGB image to grayscale
-    gray_image = 0.2989 * image.array[0] + 0.5870 * image.array[1] + 0.1140 * image.array[2]
+    gray_image = (
+        0.2989 * image.array[0] + 0.5870 * image.array[1] + 0.1140 * image.array[2]
+    )
 
     # Count the number of black pixels
     nb_black_pixels = np.sum(gray_image < black_value_threshold)
