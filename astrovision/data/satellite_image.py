@@ -355,7 +355,7 @@ class SatelliteImage:
         Return True if image intersects a polygon.
 
         Args:
-            box_bounds (Tuple): Polygon geometry.
+            polygon_geometry (Polygon): Polygon geometry.
             crs (str): Projection system.
 
         Returns:
