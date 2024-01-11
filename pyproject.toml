@@ -6,7 +6,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "astrovision"
-version = "0.7.0"
+version = "0.8.0"
 description = "The compulsory Python library to work with satellite imagery."
 authors = [
     "Raya Berova <raya.berova@insee.fr>",
