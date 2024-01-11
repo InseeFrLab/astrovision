@@ -167,5 +167,34 @@ def plot_images_with_classification_label(
 def plot_images_with_detection_label(
     labeled_satellite_images: List[DetectionLabeledSatelliteImage],
     bands_indices: List[int],
+    overlay: bool = True,
 ):
-    raise NotImplementedError
+    """
+    Plot satellite images with detection labels.
+
+    Args:
+        labeled_satellite_images (List[DetectionLabeledSatelliteImage]): Images with
+            detection labels.
+        bands_indices (List[int]): Indices of bands to plot.
+        overlay (bool, optional): Whether to overlay segmentation label on top.
+            Defaults to True.
+    """
+    segmented_images = []
+    for labeled_image in labeled_satellite_images:
+        segmentation_label = np.zeros(
+            (
+                labeled_image.satellite_image.array.shape[1],
+                labeled_image.satellite_image.array.shape[2],
+            )
+        )
+        for bounding_box in labeled_image.label:
+            x0, y0, x1, y1 = bounding_box
+            segmentation_label[x0:x1, y0:y1] = 1
+        segmented_images.append(
+            SegmentationLabeledSatelliteImage(
+                labeled_image.satellite_image,
+                segmentation_label,
+            )
+        )
+
+    return plot_images_with_segmentation_label(segmented_images, bands_indices, overlay)
