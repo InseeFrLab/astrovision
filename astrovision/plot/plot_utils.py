@@ -64,7 +64,7 @@ def plot_images_with_segmentation_label(
     overlay: bool = True,
 ):
     """
-    Plot satellite images with segmentation label.
+    Plot satellite images with segmentation labels.
 
     Args:
         labeled_satellite_images (List[ClassificationLabeledSatelliteImage]):
@@ -131,8 +131,37 @@ def plot_images_with_segmentation_label(
 def plot_images_with_classification_label(
     labeled_satellite_images: List[ClassificationLabeledSatelliteImage],
     bands_indices: List[int],
+    overlay: bool = True,
 ):
-    raise NotImplementedError
+    """
+    Plot satellite images with classification labels.
+
+    Args:
+        labeled_satellite_images (List[ClassificationLabeledSatelliteImage]):
+            Images with classification labels.
+        bands_indices (List[int]): Indices of bands to plot.
+        overlay (bool): Whether to overlay segmentation label on top
+            of satellite image.
+    """
+    segmented_images = []
+    for labeled_image in labeled_satellite_images:
+        segmentation_label = (
+            np.ones(
+                (
+                    labeled_image.satellite_image.array.shape[1],
+                    labeled_image.satellite_image.array.shape[2],
+                )
+            )
+            * labeled_image.label
+        )
+        segmented_images.append(
+            SegmentationLabeledSatelliteImage(
+                labeled_image.satellite_image,
+                segmentation_label,
+            )
+        )
+
+    return plot_images_with_segmentation_label(segmented_images, bands_indices, overlay)
 
 
 def plot_images_with_detection_label(
