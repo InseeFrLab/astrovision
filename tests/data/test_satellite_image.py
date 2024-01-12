@@ -166,3 +166,21 @@ def test_intersects_polygon_2(
     crs = "EPSG:4471"  # For Mayotte
 
     assert satellite_image_land.intersects_polygon(polygon_geometry=geometry, crs=crs)
+
+
+def test_contains_point_1(
+    satellite_image_land,
+):
+    coordinates = (509500.0, 8592500.0)
+    crs = "EPSG:4471"
+
+    assert satellite_image_land.contains(coordinates=coordinates, crs=crs)
+
+
+def test_contains_point_2(
+    satellite_image_land,
+):
+    coordinates = (506500.0, 8592500.0)
+    crs = "EPSG:4471"
+
+    assert not satellite_image_land.contains(coordinates=coordinates, crs=crs)
