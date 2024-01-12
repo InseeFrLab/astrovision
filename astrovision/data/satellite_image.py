@@ -17,7 +17,7 @@ import torch
 from osgeo import gdal
 import pyproj
 from pyproj.crs import CRS
-from shapely.geometry import box, Polygon
+from shapely.geometry import box, Polygon, Point
 from shapely.ops import transform
 
 from .constants import DEPARTMENTS_LIST
@@ -371,3 +371,25 @@ class SatelliteImage:
             )
             image_geometry = transform(transformer.transform, image_geometry)
         return image_geometry.intersects(polygon_geometry)
+
+    def contains(self, coordinates: Tuple, crs: str) -> bool:
+        """
+        Return True if image contains a point specified by `coordinates`
+
+        Args:
+            coordinates (Tuple): Coordinates.
+            crs (str): Projection system.
+
+        Returns:
+            bool: Boolean.
+        """
+        point = Point(*coordinates)
+        if crs != self.crs:
+            source_crs = pyproj.Proj(crs)
+            target_crs = pyproj.Proj(self.crs)
+            transformer = pyproj.Transformer.from_proj(
+                source_crs,
+                target_crs,
+            )
+            point = transform(transformer.transform, point)
+        return point.within(box(*self.bounds))
