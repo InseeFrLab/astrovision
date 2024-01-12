@@ -216,10 +216,10 @@ class DetectionLabeledSatelliteImage:
         )
         # Drawing bounding boxes
         for x, y, xx, yy in self.label:
-            c1 = (int(x.item()), int(y.item()))
-            c2 = (int(xx.item()), int(yy.item()))
+            c1 = (int(x), int(y))
+            c2 = (int(xx), int(yy))
             draw = ImageDraw.Draw(image)
-            draw.rectangle((c1, c2))
+            draw.rectangle((c1, c2), width=2, outline="red")
 
         fig, ax = plt.subplots(figsize=(5, 5))
         ax.imshow(image)
@@ -297,7 +297,7 @@ class ClassificationLabeledSatelliteImage:
         # Green or red array
         rgb_list = [int(color[i : i + 2], 16) for i in (0, 2, 4)]  # noqa: E203
         color_array = np.ones_like(image_array)
-        color_array *= rgb_list
+        color_array = color_array * rgb_list
 
         fig, ax = plt.subplots(figsize=(5, 5))
         ax.imshow(image_array)
