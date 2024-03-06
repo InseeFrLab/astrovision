@@ -14,6 +14,71 @@ from rasterio.merge import merge
 from matplotlib import pyplot as plt
 
 
+def make_mosaic(
+    satellite_images: List[SatelliteImage],
+    bands_indices: List[int],
+) -> SatelliteImage:
+    """
+    Create a mosaic from satellite images.
+
+    Args:
+        satellite_images (List[SatelliteImage]): Images.
+        bands_indices (List[int]): Indices of bands to include in the mosaic.
+
+    Returns:
+        SatelliteImage: Mosaic of satellite images.
+    """
+    # Check all images have same CRS
+    if len(satellite_images) == 1:
+        pass
+    else:
+        reference_crs = satellite_images[0].crs
+        for idx in range(1, len(satellite_images)):
+            if satellite_images[idx].crs != reference_crs:
+                return ValueError("Images must have the same CRS.")
+
+    # Create mosaic array from satellite images
+    memory_files = []
+    raster_list = []
+    for i, image in enumerate(satellite_images):
+        array = image.array
+        memfile = rasterio.io.MemoryFile()
+        with memfile.open(
+            driver="GTiff",
+            height=array.shape[1],
+            width=array.shape[2],
+            count=len(bands_indices),
+            dtype=rasterio.float64,
+            crs=image.crs,
+            transform=image.transform,
+        ) as dataset:
+            dataset.write(array, [idx + 1 for idx in bands_indices])
+        memory_files.append(memfile)
+
+    for memfile in memory_files:
+        raster_list.append(rasterio.open(memfile))
+
+    mosaic, out_transform = merge(raster_list)
+
+    # Compute bounds
+    left = min([satellite_image.bounds[0] for satellite_image in satellite_images])
+    bottom = min([satellite_image.bounds[1] for satellite_image in satellite_images])
+    right = max([satellite_image.bounds[2] for satellite_image in satellite_images])
+    top = max([satellite_image.bounds[3] for satellite_image in satellite_images])
+    bounds = (left, bottom, right, top)
+
+    # Create SatelliteImage
+    # TODO: dep and date if all images have same dep and date
+    mosaic_image = SatelliteImage(
+        array=mosaic,
+        crs=satellite_images[0].crs,
+        bounds=bounds,
+        transform=out_transform,
+    )
+
+    return mosaic_image
+
+
 def plot_images(
     satellite_images: List[SatelliteImage],
     bands_indices: List[int],
@@ -25,6 +90,8 @@ def plot_images(
         satellite_images (List[SatelliteImage]): Images.
         bands_indices (List[int]): Indices of bands to plot.
     """
+    # TODO: here and in the following functions:
+    # TODO: plot mosaic from `make_mosaic` function
     # Create mosaic from satellite images
     memory_files = []
     raster_list = []
