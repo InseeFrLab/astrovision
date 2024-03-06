@@ -3,6 +3,7 @@ Classes representing satellite images labeled according
 to a segmentation, a classification or an object detection
 task.
 """
+
 from __future__ import annotations
 
 from datetime import datetime

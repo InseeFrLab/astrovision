@@ -1,6 +1,7 @@
 """
 Functions to sample from a list of satellite images.
 """
+
 from geopy.distance import geodesic
 from pyproj import Transformer
 from typing import List, Tuple

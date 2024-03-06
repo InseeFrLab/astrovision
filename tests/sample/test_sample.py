@@ -1,6 +1,7 @@
 """
 Tests for astrovision/sample/sample.py
 """
+
 from astrovision.data.satellite_image import (
     SatelliteImage,
 )

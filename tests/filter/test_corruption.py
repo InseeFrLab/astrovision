@@ -1,6 +1,7 @@
 """
 Tests for astrovision/filter/corruption.py
 """
+
 import numpy as np
 from astrovision.data.satellite_image import (
     SatelliteImage,

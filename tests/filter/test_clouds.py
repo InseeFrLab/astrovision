@@ -1,6 +1,7 @@
 """
 Tests for the clouds filter.
 """
+
 from astrovision.data.satellite_image import (
     SatelliteImage,
 )

@@ -1,6 +1,7 @@
 """
 Utility functions for plotting.
 """
+
 import numpy as np
 from typing import List
 from ..data import (

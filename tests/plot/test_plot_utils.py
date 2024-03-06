@@ -1,6 +1,7 @@
 """
 Test the plot_utils module.
 """
+
 from astrovision.data.satellite_image import (
     SatelliteImage,
 )

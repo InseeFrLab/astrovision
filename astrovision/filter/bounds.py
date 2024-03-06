@@ -1,6 +1,7 @@
 """
 Filter out of bounds images.
 """
+
 from typing import List
 from shapely.geometry import Polygon
 from ..data import SatelliteImage

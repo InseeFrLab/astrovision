@@ -1,6 +1,7 @@
 """
 Sample module.
 """
+
 from .sample import (
     compute_distance_to_point,
     is_within_distance,

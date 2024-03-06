@@ -1,6 +1,7 @@
 """
 Plot module.
 """
+
 from .plot_utils import (
     plot_images,
     plot_images_with_segmentation_label,

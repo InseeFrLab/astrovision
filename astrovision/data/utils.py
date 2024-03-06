@@ -1,6 +1,7 @@
 """
 Util functions for the data module.
 """
+
 from affine import Affine
 from typing import List, Tuple
 import rasterio
@@ -31,13 +32,19 @@ def generate_tiles_borders(height: int, width: int, tile_length: int) -> List:
         )
 
     indices = [
-        ((height - tile_length, height), (width - tile_length, width))
-        if (x + tile_length > height) & (y + tile_length > width)
-        else ((x, x + tile_length), (y, y + tile_length))
-        if (x + tile_length <= height) & (y + tile_length <= width)
-        else ((height - tile_length, height), (y, y + tile_length))
-        if (x + tile_length > height) & (y + tile_length <= width)
-        else ((x, x + tile_length), (width - tile_length, width))
+        (
+            ((height - tile_length, height), (width - tile_length, width))
+            if (x + tile_length > height) & (y + tile_length > width)
+            else (
+                ((x, x + tile_length), (y, y + tile_length))
+                if (x + tile_length <= height) & (y + tile_length <= width)
+                else (
+                    ((height - tile_length, height), (y, y + tile_length))
+                    if (x + tile_length > height) & (y + tile_length <= width)
+                    else ((x, x + tile_length), (width - tile_length, width))
+                )
+            )
+        )
         for x in range(0, height, tile_length)
         for y in range(0, width, tile_length)
     ]
