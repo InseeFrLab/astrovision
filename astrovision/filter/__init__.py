@@ -1,6 +1,7 @@
 """
 Filter module
 """
+
 from .corruption import filter_corrupted
 from .bounds import filter_oob
 from .clouds import filter_cloudy

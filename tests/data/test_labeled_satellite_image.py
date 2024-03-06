@@ -1,6 +1,7 @@
 """
 Tests for astrovision/data/labeled_satellite_image.py
 """
+
 from astrovision.data.satellite_image import SatelliteImage
 from astrovision.data.labeled_satellite_image import (
     SegmentationLabeledSatelliteImage,

@@ -1,6 +1,7 @@
 """
 Cloud filtering.
 """
+
 from typing import List
 import numpy as np
 from ..data import SatelliteImage

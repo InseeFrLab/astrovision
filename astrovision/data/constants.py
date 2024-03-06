@@ -1,6 +1,7 @@
 """
 Constants for the data module.
 """
+
 from typing import List, Dict
 
 
