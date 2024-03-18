@@ -26,7 +26,6 @@ repository = "https://github.com/InseeFrLab/astrovision"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-gdal = "3.8.4"
 matplotlib = "^3.8.2"
 rasterio = "^1.3.9"
 torch = "^2.1.1"
