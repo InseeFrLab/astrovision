@@ -165,7 +165,7 @@ def make_mosaic_lsi(
     # TODO: dep and date if all images have same dep and date
     mosaic_image = SatelliteImage(
         array=mosaic.astype("uint8"),
-        crs=labelled_satellite_images[0].crs,
+        crs=labelled_satellite_images[0].satellite_image.crs,
         bounds=bounds,
         transform=out_transform,
     )
