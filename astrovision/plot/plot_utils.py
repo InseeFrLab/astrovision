@@ -3,7 +3,7 @@ Utility functions for plotting.
 """
 
 import numpy as np
-from typing import List
+from typing import List, Union
 from ..data import (
     SatelliteImage,
     SegmentationLabeledSatelliteImage,
@@ -16,6 +16,34 @@ from matplotlib import pyplot as plt
 
 
 def make_mosaic(
+    images: List[Union[SatelliteImage, SegmentationLabeledSatelliteImage]],
+    bands_indices: List[int],
+):
+    """
+    Creates a mosaic image from a list of satellite images.
+
+    Args:
+        images (List[Union[SatelliteImage, SegmentationLabeledSatelliteImage]]):
+            A list of satellite images to be used for creating the mosaic.
+        bands_indices (List[int]):
+            A list of band indices to be used for creating the mosaic.
+
+    Returns:
+        The mosaic image created from the input images.
+
+    Raises:
+        ValueError: If the image type is not supported.
+
+    """
+    if isinstance(images[0], SatelliteImage):
+        return make_mosaic_si(images, bands_indices)
+    elif isinstance(images[0], SegmentationLabeledSatelliteImage):
+        return make_mosaic_lsi(images, bands_indices)
+    else:
+        raise ValueError("Unsupported image type")
+
+
+def make_mosaic_si(
     satellite_images: List[SatelliteImage],
     bands_indices: List[int],
 ) -> SatelliteImage:
@@ -78,6 +106,98 @@ def make_mosaic(
     )
 
     return mosaic_image
+
+
+def make_mosaic_lsi(
+    labelled_satellite_images: List[SegmentationLabeledSatelliteImage],
+    bands_indices: List[int],
+) -> SegmentationLabeledSatelliteImage:
+    """
+    Create a mosaic from labeled satellite images.
+
+    Args:
+        labelled_satellite_images (List[SegmentationLabeledSatelliteImage]): Labeled images.
+        bands_indices (List[int]): Indices of bands to include in the mosaic.
+
+    Returns:
+        SegmentationLabeledSatelliteImage: Mosaic of satellite images and labels.
+    """
+    # Check all images have same CRS
+    if len(labelled_satellite_images) == 1:
+        pass
+    else:
+        reference_crs = labelled_satellite_images[0].satellite_image.crs
+        for idx in range(1, len(labelled_satellite_images)):
+            if labelled_satellite_images[idx].satellite_image.crs != reference_crs:
+                return ValueError("Images must have the same CRS.")
+
+    # Create mosaic array from satellite images
+    memory_files = []
+    raster_list = []
+    for i, image in enumerate(labelled_satellite_images):
+        array = image.satellite_image.array
+        memfile = rasterio.io.MemoryFile()
+        with memfile.open(
+            driver="GTiff",
+            height=array.shape[1],
+            width=array.shape[2],
+            count=len(bands_indices),
+            dtype=rasterio.float64,
+            crs=image.satellite_image.crs,
+            transform=image.satellite_image.transform,
+        ) as dataset:
+            dataset.write(array, [idx + 1 for idx in bands_indices])
+        memory_files.append(memfile)
+
+    for memfile in memory_files:
+        raster_list.append(rasterio.open(memfile))
+
+    mosaic, out_transform = merge(raster_list)
+
+    # Compute bounds
+    left = min([lsi.satellite_image.bounds[0] for lsi in labelled_satellite_images])
+    bottom = min([lsi.satellite_image.bounds[1] for lsi in labelled_satellite_images])
+    right = max([lsi.satellite_image.bounds[2] for lsi in labelled_satellite_images])
+    top = max([lsi.satellite_image.bounds[3] for lsi in labelled_satellite_images])
+    bounds = (left, bottom, right, top)
+
+    # Create SatelliteImage
+    # TODO: dep and date if all images have same dep and date
+    mosaic_image = SatelliteImage(
+        array=mosaic.astype("uint8"),
+        crs=labelled_satellite_images[0].crs,
+        bounds=bounds,
+        transform=out_transform,
+    )
+
+    # Create mosaic array from labels
+    memory_files = []
+    raster_list = []
+    for i, image in enumerate(labelled_satellite_images):
+        label = np.expand_dims(image.label, axis=0)
+        memfile = rasterio.io.MemoryFile()
+        with memfile.open(
+            driver="GTiff",
+            height=label.shape[1],
+            width=label.shape[2],
+            count=1,
+            dtype=rasterio.float64,
+            crs=image.satellite_image.crs,
+            transform=image.satellite_image.transform,
+        ) as dataset:
+            dataset.write(label)
+        memory_files.append(memfile)
+
+    for memfile in memory_files:
+        raster_list.append(rasterio.open(memfile))
+
+    mosaic_mask, out_transform = merge(raster_list)
+
+    mosaic_labelled = SegmentationLabeledSatelliteImage(
+        mosaic_image, np.squeeze(mosaic_mask)
+    )
+
+    return mosaic_labelled
 
 
 def plot_images(
