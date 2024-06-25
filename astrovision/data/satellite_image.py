@@ -301,6 +301,10 @@ class SatelliteImage:
         array = self.array
         crs = self.crs
 
+        dirname = os.path.dirname(file_path)
+        if not os.path.exists(dirname):
+            os.makedirs(dirname)
+
         driver = gdal.GetDriverByName("GTiff")
         out_ds = driver.Create(
             file_path,
@@ -319,7 +323,7 @@ class SatelliteImage:
                 transform[4],
             ]
         )
-        out_ds.SetProjection(crs.to_wkt())
+        out_ds.SetProjection(crs)
 
         for j in range(array.shape[0]):
             out_ds.GetRasterBand(j + 1).WriteArray(array[j, :, :])
