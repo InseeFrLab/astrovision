@@ -123,7 +123,7 @@ class SegmentationLabeledSatelliteImage:
             # Handle multi-class case with legend
             # Create the color-mapped label for multi-class
             color_mapped_label = cmap(
-                self.label
+                self.label - 1
             )  # Converts class indices to RGBA values
             ax.imshow(color_mapped_label, alpha=alpha)  # Overlay the color-mapped mask
 
@@ -188,7 +188,7 @@ class SegmentationLabeledSatelliteImage:
                 for i in range(len(class_labels))
             ]
             ax2.legend(
-                handles=legend_elements, loc="upper right", bbox_to_anchor=(1.41, 1)
+                handles=legend_elements, loc="upper right", bbox_to_anchor=(1.54, 1)
             )
 
         ax2.axis("off")
