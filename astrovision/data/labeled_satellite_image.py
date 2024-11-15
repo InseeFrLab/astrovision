@@ -16,13 +16,14 @@ from PIL import Image, ImageDraw
 from .satellite_image import SatelliteImage
 from .utils import generate_tiles_borders
 
+import matplotlib as mpl
+from matplotlib.patches import Patch
+
 
 class SegmentationLabeledSatelliteImage:
     """
     Class for satellite images with a semantic segmentation label.
-    The segmentation label is a 0-1 mask marking the presence of
-    a building on each pixel.
-    TODO: generalize to n classes ?
+    The segmentation label supports n classes.
     """
 
     def __init__(
@@ -37,12 +38,12 @@ class SegmentationLabeledSatelliteImage:
 
         Args:
             satellite_image (SatelliteImage): Satellite Image.
-            label (np.array): Segmentation mask.
+            label (np.array): Segmentation mask with class IDs (0 to n-1).
             source (Optional[Literal["RIL", "BDTOPO"]]): Labeling source.
             labeling_date (Optional[datetime]): Date of labeling data.
         """
-        if not np.all(np.isin(label, [0, 1])):
-            raise ValueError("Label has values outside of 0 and 1.")
+        if not issubclass(label.dtype.type, np.integer):
+            raise ValueError("Label array must contain integer values for class IDs.")
 
         self.satellite_image = satellite_image
         self.label = label
@@ -82,7 +83,13 @@ class SegmentationLabeledSatelliteImage:
 
         return labeled_tiles
 
-    def plot(self, bands_indices: List[int], alpha: float = 0.3):
+    def plot(
+        self,
+        bands_indices: List[int],
+        alpha: float = 0.3,
+        colormap: str = "tab20",
+        class_labels: Optional[List[str]] = None,
+    ):
         """
         Plot a subset of bands of the satellite image and its
         corresponding labels on the same plot.
@@ -95,18 +102,51 @@ class SegmentationLabeledSatelliteImage:
                 image when overlaid on the satellite image. A value of
                 0 means fully transparent and a value of 1 means fully
                 opaque. The default value is 0.3.
+            colormap (str, optional): Matplotlib colormap for the labels.
+            class_labels (Optional[List[str]], optional): List of class labels for the legend.
+                If not provided, it assumes a binary classification.
         """
-        fig, ax = plt.subplots(figsize=(5, 5))
+        # Initialize the plot
+        fig, ax = plt.subplots(figsize=(6, 6))
+
+        # Plot the satellite image (adjusted for selected bands)
         ax.imshow(
             np.transpose(self.satellite_image.array, (1, 2, 0))[:, :, bands_indices]
         )
-        ax.imshow(self.label, alpha=alpha)
-        plt.xticks([])
-        plt.yticks([])
+
+        # If class_labels is not provided, assume binary classification (two classes)
+        if class_labels is None:
+            ax.imshow(self.label, alpha=alpha)
+        else:
+            # Handle label overlay for multi-class case
+            cmap = mpl.colormaps[colormap]
+            # Handle multi-class case with legend
+            # Create the color-mapped label for multi-class
+            color_mapped_label = cmap(
+                self.label
+            )  # Converts class indices to RGBA values
+            ax.imshow(color_mapped_label, alpha=alpha)  # Overlay the color-mapped mask
+
+            # Create a legend for the classes
+            legend_elements = [
+                Patch(facecolor=cmap(i), edgecolor="black", label=f"{class_labels[i]}")
+                for i in range(len(class_labels))
+            ]
+            ax.legend(
+                handles=legend_elements, loc="upper right", bbox_to_anchor=(1.41, 1)
+            )
+
+        # Turn off axis and show the plot
+        ax.axis("off")
 
         return plt.gcf()
 
-    def plot_label_next_to_image(self, bands_indices: List[int]):
+    def plot_label_next_to_image(
+        self,
+        bands_indices: List[int],
+        colormap: str = "tab20",
+        class_labels: Optional[List[str]] = None,
+    ):
         """
         Plot a subset of bands from a satellite image and its
         corresponding label on the side.
@@ -115,30 +155,72 @@ class SegmentationLabeledSatelliteImage:
             bands_indices (List[int]): List of indices of bands to plot.
                 The indices should be integers between 0 and the
                 number of bands - 1.
+            colormap (str, optional): Matplotlib colormap for the labels.
+            class_labels (Optional[List[str]], optional): List of class labels for the legend.
+                If not provided, it assumes a binary classification.
         """
-        label = np.zeros((*self.label.shape, 3))
-        label[self.label == 1, :] = [255, 255, 255]
-        label = label.astype(np.uint8)
-
         fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 10))
         ax1.imshow(
             np.transpose(self.satellite_image.array, (1, 2, 0))[:, :, bands_indices]
         )
         ax1.axis("off")
-        ax2.imshow(label)
-        plt.xticks([])
-        plt.yticks([])
+
+        # If class_labels is not provided, assume binary classification (two classes)
+        if class_labels is None:
+            label = np.zeros((*self.label.shape, 3))
+            label[self.label == 1, :] = [255, 255, 255]
+            label = label.astype(np.uint8)
+            ax2.imshow(label)
+        else:
+            # Handle label overlay for multi-class case
+            cmap = mpl.colormaps[colormap]
+            # Handle multi-class case with legend
+            # Create the color-mapped label for multi-class
+            color_mapped_label = cmap(
+                self.label - 1
+            )  # Converts class indices to RGBA values and shift the class indices to 0-based
+
+            ax2.imshow(color_mapped_label)  # Overlay the color-mapped mask
+
+            # Create a legend for the classes
+            legend_elements = [
+                Patch(facecolor=cmap(i), edgecolor="black", label=f"{class_labels[i]}")
+                for i in range(len(class_labels))
+            ]
+            ax2.legend(
+                handles=legend_elements, loc="upper right", bbox_to_anchor=(1.41, 1)
+            )
+
+        ax2.axis("off")
 
         return plt.gcf()
 
-    def to_classification_labeled_image(self) -> ClassificationLabeledSatelliteImage:
+    def to_classification_labeled_image(
+        self, aggregation_method: str = "any"
+    ) -> ClassificationLabeledSatelliteImage:
         """
         Return a ClassificationLabeledSatelliteImage.
+
+        Args:
+            aggregation_method (str): Method to aggregate pixel labels to a single class.
+                Options: 'any' (default), 'majority', 'weighted'.
+
+        Returns:
+            ClassificationLabeledSatelliteImage: Image with a single class label.
         """
-        if not np.any(self.label):
-            classification_label = 0
+        if aggregation_method == "any":
+            classification_label = int(np.any(self.label > 0))
+        elif aggregation_method == "majority":
+            unique, counts = np.unique(self.label, return_counts=True)
+            classification_label = unique[np.argmax(counts)]
+        elif aggregation_method == "weighted":
+            unique, counts = np.unique(self.label, return_counts=True)
+            total_pixels = self.label.size
+            weights = counts / total_pixels
+            classification_label = unique[np.argmax(weights)]
         else:
-            classification_label = 1
+            raise ValueError("Invalid aggregation method.")
+
         return ClassificationLabeledSatelliteImage(
             satellite_image=self.satellite_image,
             label=classification_label,
