@@ -87,7 +87,7 @@ class SegmentationLabeledSatelliteImage:
         self,
         bands_indices: List[int],
         alpha: float = 0.3,
-        colormap: str = "tab20",
+        color_palette: List[str] = None,
         class_labels: Optional[List[str]] = None,
     ):
         """
@@ -102,7 +102,7 @@ class SegmentationLabeledSatelliteImage:
                 image when overlaid on the satellite image. A value of
                 0 means fully transparent and a value of 1 means fully
                 opaque. The default value is 0.3.
-            colormap (str, optional): Matplotlib colormap for the labels.
+            color_palette (list, optional): Color palette.
             class_labels (Optional[List[str]], optional): List of class labels for the legend.
                 If not provided, it assumes a binary classification.
         """
@@ -119,17 +119,21 @@ class SegmentationLabeledSatelliteImage:
             ax.imshow(self.label, alpha=alpha)
         else:
             # Handle label overlay for multi-class case
-            cmap = mpl.colormaps[colormap]
+            cmap = mpl.colors.ListedColormap(color_palette)
             # Handle multi-class case with legend
             # Create the color-mapped label for multi-class
             color_mapped_label = cmap(
-                self.label - 1
+                self.label
             )  # Converts class indices to RGBA values
             ax.imshow(color_mapped_label, alpha=alpha)  # Overlay the color-mapped mask
 
             # Create a legend for the classes
             legend_elements = [
-                Patch(facecolor=cmap(i), edgecolor="black", label=f"{class_labels[i]}")
+                Patch(
+                    facecolor=color_palette[i],
+                    edgecolor="black",
+                    label=f"{class_labels[i]}",
+                )
                 for i in range(len(class_labels))
             ]
             ax.legend(
@@ -144,7 +148,7 @@ class SegmentationLabeledSatelliteImage:
     def plot_label_next_to_image(
         self,
         bands_indices: List[int],
-        colormap: str = "tab20",
+        color_palette: List[str] = None,
         class_labels: Optional[List[str]] = None,
     ):
         """
@@ -155,7 +159,7 @@ class SegmentationLabeledSatelliteImage:
             bands_indices (List[int]): List of indices of bands to plot.
                 The indices should be integers between 0 and the
                 number of bands - 1.
-            colormap (str, optional): Matplotlib colormap for the labels.
+            color_palette (list, optional): Color palette.
             class_labels (Optional[List[str]], optional): List of class labels for the legend.
                 If not provided, it assumes a binary classification.
         """
@@ -173,18 +177,22 @@ class SegmentationLabeledSatelliteImage:
             ax2.imshow(label)
         else:
             # Handle label overlay for multi-class case
-            cmap = mpl.colormaps[colormap]
+            cmap = mpl.colors.ListedColormap(color_palette)
             # Handle multi-class case with legend
             # Create the color-mapped label for multi-class
             color_mapped_label = cmap(
-                self.label - 1
-            )  # Converts class indices to RGBA values and shift the class indices to 0-based
+                self.label
+            )  # Converts class indices to RGBA values
 
             ax2.imshow(color_mapped_label)  # Overlay the color-mapped mask
 
             # Create a legend for the classes
             legend_elements = [
-                Patch(facecolor=cmap(i), edgecolor="black", label=f"{class_labels[i]}")
+                Patch(
+                    facecolor=color_palette[i],
+                    edgecolor="black",
+                    label=f"{class_labels[i]}",
+                )
                 for i in range(len(class_labels))
             ]
             ax2.legend(
