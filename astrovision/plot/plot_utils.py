@@ -197,9 +197,11 @@ def make_mosaic_lsi(
         raster_list.append(rasterio.open(memfile))
 
     mosaic_mask, out_transform = merge(raster_list)
+    mosaic_mask = np.squeeze(mosaic_mask)
 
+    logits = True if len(mosaic_mask.shape) == 3 else False
     mosaic_labelled = SegmentationLabeledSatelliteImage(
-        mosaic_image, np.squeeze(mosaic_mask)
+        mosaic_image, np.squeeze(mosaic_mask), logits=logits
     )
 
     return mosaic_labelled
