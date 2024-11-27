@@ -47,7 +47,7 @@ class SegmentationLabeledSatelliteImage:
         if not issubclass(label.dtype.type, np.integer) and not logits:
             raise ValueError("Label array must contain integer values for class IDs.")
 
-        if not issubclass(label.dtype.type, np.float64) and logits:
+        if not issubclass(label.dtype.type, np.floating) and logits:
             raise ValueError("Label array must contain float values for logits.")
 
         self.satellite_image = satellite_image
