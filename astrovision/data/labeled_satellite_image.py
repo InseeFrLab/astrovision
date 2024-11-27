@@ -32,6 +32,7 @@ class SegmentationLabeledSatelliteImage:
         label: np.array,
         source: Optional[Literal["RIL", "BDTOPO"]] = None,
         labeling_date: Optional[datetime] = None,
+        logits: Optional[bool] = False,
     ):
         """
         Constructor.
@@ -41,14 +42,19 @@ class SegmentationLabeledSatelliteImage:
             label (np.array): Segmentation mask with class IDs (0 to n-1).
             source (Optional[Literal["RIL", "BDTOPO"]]): Labeling source.
             labeling_date (Optional[datetime]): Date of labeling data.
+            logits (Optional[bool]): Whether label array is logits or class IDs
         """
-        if not issubclass(label.dtype.type, np.integer):
+        if not issubclass(label.dtype.type, np.integer) and not logits:
             raise ValueError("Label array must contain integer values for class IDs.")
+
+        if not issubclass(label.dtype.type, np.float) and logits:
+            raise ValueError("Label array must contain float values for logits.")
 
         self.satellite_image = satellite_image
         self.label = label
         self.source = source
         self.labeling_date = labeling_date
+        self.logits = logits
 
     def split(self, tile_length: int) -> List[SegmentationLabeledSatelliteImage]:
         """
