@@ -1,0 +1,979 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>astrovision.data &#8212; astrovision  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'autoapi/astrovision/data/index';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="astrovision.data.constants" href="constants/index.html" />
+    <link rel="prev" title="astrovision" href="../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">astrovision  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../pages/changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pages/contributing.html">Contributing guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pages/conduct.html">Contributor Covenant Code of Conduct</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../index.html">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../index.html">astrovision</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active has-children"><a class="current reference internal" href="#">astrovision.data</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="constants/index.html">astrovision.data.constants</a></li>
+<li class="toctree-l4"><a class="reference internal" href="labeled_satellite_image/index.html">astrovision.data.labeled_satellite_image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="satellite_image/index.html">astrovision.data.satellite_image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils/index.html">astrovision.data.utils</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../filter/index.html">astrovision.filter</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../filter/bounds/index.html">astrovision.filter.bounds</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../filter/clouds/index.html">astrovision.filter.clouds</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../filter/corruption/index.html">astrovision.filter.corruption</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../plot/index.html">astrovision.plot</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../plot/plot_utils/index.html">astrovision.plot.plot_utils</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../sample/index.html">astrovision.sample</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../sample/sample/index.html">astrovision.sample.sample</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/autoapi/astrovision/data/index.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>astrovision.data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classes">Classes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#package-contents">Package Contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage"><code class="docutils literal notranslate"><span class="pre">SatelliteImage</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.array"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.array</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.crs"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.crs</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.bounds"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.bounds</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.transform"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.transform</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.dep"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.dep</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.date"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.date</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.split"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.split()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.to_tensor"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.to_tensor()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.normalize"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.normalize()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.copy"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.copy()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.plot"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.plot()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.from_raster"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.from_raster()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.to_raster"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.to_raster()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.to_raster_jp2"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.to_raster_jp2()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.to_raster_tif"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.to_raster_tif()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.intersects_box"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.intersects_box()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.intersects_polygon"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.intersects_polygon()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.contains"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.contains()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SegmentationLabeledSatelliteImage"><code class="docutils literal notranslate"><span class="pre">SegmentationLabeledSatelliteImage</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SegmentationLabeledSatelliteImage.satellite_image"><code class="docutils literal notranslate"><span class="pre">SegmentationLabeledSatelliteImage.satellite_image</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SegmentationLabeledSatelliteImage.label"><code class="docutils literal notranslate"><span class="pre">SegmentationLabeledSatelliteImage.label</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SegmentationLabeledSatelliteImage.source"><code class="docutils literal notranslate"><span class="pre">SegmentationLabeledSatelliteImage.source</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SegmentationLabeledSatelliteImage.labeling_date"><code class="docutils literal notranslate"><span class="pre">SegmentationLabeledSatelliteImage.labeling_date</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SegmentationLabeledSatelliteImage.logits"><code class="docutils literal notranslate"><span class="pre">SegmentationLabeledSatelliteImage.logits</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SegmentationLabeledSatelliteImage.split"><code class="docutils literal notranslate"><span class="pre">SegmentationLabeledSatelliteImage.split()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SegmentationLabeledSatelliteImage.plot"><code class="docutils literal notranslate"><span class="pre">SegmentationLabeledSatelliteImage.plot()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SegmentationLabeledSatelliteImage.plot_label_next_to_image"><code class="docutils literal notranslate"><span class="pre">SegmentationLabeledSatelliteImage.plot_label_next_to_image()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SegmentationLabeledSatelliteImage.to_classification_labeled_image"><code class="docutils literal notranslate"><span class="pre">SegmentationLabeledSatelliteImage.to_classification_labeled_image()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.DetectionLabeledSatelliteImage"><code class="docutils literal notranslate"><span class="pre">DetectionLabeledSatelliteImage</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.DetectionLabeledSatelliteImage.satellite_image"><code class="docutils literal notranslate"><span class="pre">DetectionLabeledSatelliteImage.satellite_image</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.DetectionLabeledSatelliteImage.label"><code class="docutils literal notranslate"><span class="pre">DetectionLabeledSatelliteImage.label</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.DetectionLabeledSatelliteImage.source"><code class="docutils literal notranslate"><span class="pre">DetectionLabeledSatelliteImage.source</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.DetectionLabeledSatelliteImage.labeling_date"><code class="docutils literal notranslate"><span class="pre">DetectionLabeledSatelliteImage.labeling_date</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.DetectionLabeledSatelliteImage.split"><code class="docutils literal notranslate"><span class="pre">DetectionLabeledSatelliteImage.split()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.DetectionLabeledSatelliteImage.plot"><code class="docutils literal notranslate"><span class="pre">DetectionLabeledSatelliteImage.plot()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.DetectionLabeledSatelliteImage.to_classification_labeled_image"><code class="docutils literal notranslate"><span class="pre">DetectionLabeledSatelliteImage.to_classification_labeled_image()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.ClassificationLabeledSatelliteImage"><code class="docutils literal notranslate"><span class="pre">ClassificationLabeledSatelliteImage</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.ClassificationLabeledSatelliteImage.satellite_image"><code class="docutils literal notranslate"><span class="pre">ClassificationLabeledSatelliteImage.satellite_image</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.ClassificationLabeledSatelliteImage.label"><code class="docutils literal notranslate"><span class="pre">ClassificationLabeledSatelliteImage.label</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.ClassificationLabeledSatelliteImage.source"><code class="docutils literal notranslate"><span class="pre">ClassificationLabeledSatelliteImage.source</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.ClassificationLabeledSatelliteImage.labeling_date"><code class="docutils literal notranslate"><span class="pre">ClassificationLabeledSatelliteImage.labeling_date</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.ClassificationLabeledSatelliteImage.plot"><code class="docutils literal notranslate"><span class="pre">ClassificationLabeledSatelliteImage.plot()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-astrovision.data">
+<span id="astrovision-data"></span><h1>astrovision.data<a class="headerlink" href="#module-astrovision.data" title="Permalink to this heading">#</a></h1>
+<p>Data module.</p>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="constants/index.html">astrovision.data.constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="labeled_satellite_image/index.html">astrovision.data.labeled_satellite_image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="satellite_image/index.html">astrovision.data.satellite_image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils/index.html">astrovision.data.utils</a></li>
+</ul>
+</div>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#astrovision.data.SatelliteImage" title="astrovision.data.SatelliteImage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SatelliteImage</span></code></a></p></td>
+<td><p>Wrapper class for a satellite image.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#astrovision.data.SegmentationLabeledSatelliteImage" title="astrovision.data.SegmentationLabeledSatelliteImage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SegmentationLabeledSatelliteImage</span></code></a></p></td>
+<td><p>Class for satellite images with a semantic segmentation label.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#astrovision.data.DetectionLabeledSatelliteImage" title="astrovision.data.DetectionLabeledSatelliteImage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DetectionLabeledSatelliteImage</span></code></a></p></td>
+<td><p>Class for satellite images with an object detection label.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#astrovision.data.ClassificationLabeledSatelliteImage" title="astrovision.data.ClassificationLabeledSatelliteImage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ClassificationLabeledSatelliteImage</span></code></a></p></td>
+<td><p>Class for satellite images with 0-1 classification label.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="package-contents">
+<h2>Package Contents<a class="headerlink" href="#package-contents" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="astrovision.data.SatelliteImage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">astrovision.data.</span></span><span class="sig-name descname"><span class="pre">SatelliteImage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">affine.Affine</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="pre">astrovision.data.constants.DEPARTMENTS_LIST</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SatelliteImage.__init__.date</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#astrovision.data.SatelliteImage" title="Permalink to this definition">#</a></dt>
+<dd><p>Wrapper class for a satellite image.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="astrovision.data.SatelliteImage.array">
+<span class="sig-name descname"><span class="pre">array</span></span><a class="headerlink" href="#astrovision.data.SatelliteImage.array" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="astrovision.data.SatelliteImage.crs">
+<span class="sig-name descname"><span class="pre">crs</span></span><a class="headerlink" href="#astrovision.data.SatelliteImage.crs" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="astrovision.data.SatelliteImage.bounds">
+<span class="sig-name descname"><span class="pre">bounds</span></span><a class="headerlink" href="#astrovision.data.SatelliteImage.bounds" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="astrovision.data.SatelliteImage.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><a class="headerlink" href="#astrovision.data.SatelliteImage.transform" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="astrovision.data.SatelliteImage.dep">
+<span class="sig-name descname"><span class="pre">dep</span></span><a class="headerlink" href="#astrovision.data.SatelliteImage.dep" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="astrovision.data.SatelliteImage.date">
+<span class="sig-name descname"><span class="pre">date</span></span><a class="headerlink" href="#astrovision.data.SatelliteImage.date" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="astrovision.data.SatelliteImage.split">
+<span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tile_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#astrovision.data.SatelliteImage" title="astrovision.data.SatelliteImage"><span class="pre">SatelliteImage</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#astrovision.data.SatelliteImage.split" title="Permalink to this definition">#</a></dt>
+<dd><p>Split the SatelliteImage into square tiles of side <cite>tile_length</cite>.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>tile_length (int): Side of of tiles.</p>
+</dd>
+<dt>Returns:</dt><dd><p>List[SatelliteImage]: List of tiles.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="astrovision.data.SatelliteImage.to_tensor">
+<span class="sig-name descname"><span class="pre">to_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bands_indices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.Tensor</span></span></span><a class="headerlink" href="#astrovision.data.SatelliteImage.to_tensor" title="Permalink to this definition">#</a></dt>
+<dd><p>Return SatelliteImage array as a torch.Tensor.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>bands_indices (List): List of indices of bands to plot.</dt><dd><p>The indices should be integers between 0 and the
+number of bands - 1.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><p>torch.Tensor: Image tensor.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="astrovision.data.SatelliteImage.normalize">
+<span class="sig-name descname"><span class="pre">normalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quantile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.97</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#astrovision.data.SatelliteImage" title="astrovision.data.SatelliteImage"><span class="pre">SatelliteImage</span></a></span></span><a class="headerlink" href="#astrovision.data.SatelliteImage.normalize" title="Permalink to this definition">#</a></dt>
+<dd><p>Normalize array values with min-max normalization after
+clipping at quantiles.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>quantile (float): Normalize an array.</p>
+</dd>
+<dt>Returns:</dt><dd><p>SatelliteImage: Normalized image.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="astrovision.data.SatelliteImage.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#astrovision.data.SatelliteImage" title="astrovision.data.SatelliteImage"><span class="pre">SatelliteImage</span></a></span></span><a class="headerlink" href="#astrovision.data.SatelliteImage.copy" title="Permalink to this definition">#</a></dt>
+<dd><p>Deep copy a satellite image.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>SatelliteImage: Copied image.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="astrovision.data.SatelliteImage.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bands_indices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#astrovision.data.SatelliteImage.plot" title="Permalink to this definition">#</a></dt>
+<dd><p>Plot a subset of bands from a 3D array as an image.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>bands_indices (List[int]): List of indices of bands to plot.</dt><dd><p>The indices should be integers between 0 and the
+number of bands - 1.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="astrovision.data.SatelliteImage.from_raster">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_raster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="pre">astrovision.data.constants.DEPARTMENTS_LIST</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SatelliteImage.from_raster.date</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_bands</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channels_first</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cast_to_float</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#astrovision.data.SatelliteImage" title="astrovision.data.SatelliteImage"><span class="pre">SatelliteImage</span></a></span></span><a class="headerlink" href="#astrovision.data.SatelliteImage.from_raster" title="Permalink to this definition">#</a></dt>
+<dd><p>Factory method to create a Satellite image from a raster file.</p>
+<dl>
+<dt>Args:</dt><dd><p>file_path (str): File path.
+dep (Optional[Literal[DEPARTMENTS_LIST]]): Département.
+date (Optional[date]): Date. Defaults to None.
+n_bands (int): Number of bands.
+channels_first (bool): True if channels should be moved</p>
+<blockquote>
+<div><p>to first axis.</p>
+</div></blockquote>
+<p>cast_to_float (bool): True to cast array to float.</p>
+</dd>
+<dt>Returns:</dt><dd><p>SatelliteImage: Satellite image.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="astrovision.data.SatelliteImage.to_raster">
+<span class="sig-name descname"><span class="pre">to_raster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#astrovision.data.SatelliteImage.to_raster" title="Permalink to this definition">#</a></dt>
+<dd><p>Save a SatelliteImage to a raster file
+according to the raster type desired (.tif or .jp2).</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>file_path (str): File path.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="astrovision.data.SatelliteImage.to_raster_jp2">
+<span class="sig-name descname"><span class="pre">to_raster_jp2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#astrovision.data.SatelliteImage.to_raster_jp2" title="Permalink to this definition">#</a></dt>
+<dd><p>Save a SatelliteImage to a .jp2 raster file.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>file_path (str): File path.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="astrovision.data.SatelliteImage.to_raster_tif">
+<span class="sig-name descname"><span class="pre">to_raster_tif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#astrovision.data.SatelliteImage.to_raster_tif" title="Permalink to this definition">#</a></dt>
+<dd><p>Save a SatelliteImage to a .tif raster file.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>file_path (str): File path.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="astrovision.data.SatelliteImage.intersects_box">
+<span class="sig-name descname"><span class="pre">intersects_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box_bounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#astrovision.data.SatelliteImage.intersects_box" title="Permalink to this definition">#</a></dt>
+<dd><p>Return True if image intersects a bounding box specified by
+<cite>box_bounds</cite> and a <cite>crs</cite>.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>box_bounds (Tuple): Box bounds.
+crs (str): Projection system.</p>
+</dd>
+<dt>Returns:</dt><dd><p>bool: Boolean.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="astrovision.data.SatelliteImage.intersects_polygon">
+<span class="sig-name descname"><span class="pre">intersects_polygon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">polygon_geometry</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">shapely.geometry.Polygon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#astrovision.data.SatelliteImage.intersects_polygon" title="Permalink to this definition">#</a></dt>
+<dd><p>Return True if image intersects a polygon.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>polygon_geometry (Polygon): Polygon geometry.
+crs (str): Projection system.</p>
+</dd>
+<dt>Returns:</dt><dd><p>bool: Boolean.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="astrovision.data.SatelliteImage.contains">
+<span class="sig-name descname"><span class="pre">contains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coordinates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#astrovision.data.SatelliteImage.contains" title="Permalink to this definition">#</a></dt>
+<dd><p>Return True if image contains a point specified by <cite>coordinates</cite></p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>coordinates (Tuple): Coordinates.
+crs (str): Projection system.</p>
+</dd>
+<dt>Returns:</dt><dd><p>bool: Boolean.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="astrovision.data.SegmentationLabeledSatelliteImage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">astrovision.data.</span></span><span class="sig-name descname"><span class="pre">SegmentationLabeledSatelliteImage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">satellite_image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="satellite_image/index.html#astrovision.data.satellite_image.SatelliteImage" title="astrovision.data.satellite_image.SatelliteImage"><span class="pre">astrovision.data.satellite_image.SatelliteImage</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'RIL'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'BDTOPO'</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labeling_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime.datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#astrovision.data.SegmentationLabeledSatelliteImage" title="Permalink to this definition">#</a></dt>
+<dd><p>Class for satellite images with a semantic segmentation label.
+The segmentation label supports n classes.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="astrovision.data.SegmentationLabeledSatelliteImage.satellite_image">
+<span class="sig-name descname"><span class="pre">satellite_image</span></span><a class="headerlink" href="#astrovision.data.SegmentationLabeledSatelliteImage.satellite_image" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="astrovision.data.SegmentationLabeledSatelliteImage.label">
+<span class="sig-name descname"><span class="pre">label</span></span><a class="headerlink" href="#astrovision.data.SegmentationLabeledSatelliteImage.label" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="astrovision.data.SegmentationLabeledSatelliteImage.source">
+<span class="sig-name descname"><span class="pre">source</span></span><a class="headerlink" href="#astrovision.data.SegmentationLabeledSatelliteImage.source" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="astrovision.data.SegmentationLabeledSatelliteImage.labeling_date">
+<span class="sig-name descname"><span class="pre">labeling_date</span></span><a class="headerlink" href="#astrovision.data.SegmentationLabeledSatelliteImage.labeling_date" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="astrovision.data.SegmentationLabeledSatelliteImage.logits">
+<span class="sig-name descname"><span class="pre">logits</span></span><a class="headerlink" href="#astrovision.data.SegmentationLabeledSatelliteImage.logits" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="astrovision.data.SegmentationLabeledSatelliteImage.split">
+<span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tile_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#astrovision.data.SegmentationLabeledSatelliteImage" title="astrovision.data.SegmentationLabeledSatelliteImage"><span class="pre">SegmentationLabeledSatelliteImage</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#astrovision.data.SegmentationLabeledSatelliteImage.split" title="Permalink to this definition">#</a></dt>
+<dd><p>Split the SegmentationLabeledSatelliteImage into labeled
+tiles of dimension (<cite>tile_length</cite> x <cite>tile_length</cite>).</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>tile_length (int): Dimension of tiles</p>
+</dd>
+<dt>Returns:</dt><dd><p>List[SegmentationLabeledSatelliteImage]: Labeled tiles.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="astrovision.data.SegmentationLabeledSatelliteImage.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bands_indices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_palette</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_labels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#astrovision.data.SegmentationLabeledSatelliteImage.plot" title="Permalink to this definition">#</a></dt>
+<dd><p>Plot a subset of bands of the satellite image and its
+corresponding labels on the same plot.</p>
+<dl>
+<dt>Args:</dt><dd><dl class="simple">
+<dt>bands_indices (List): List of indices of bands to plot.</dt><dd><p>The indices should be integers between 0 and the
+number of bands - 1.</p>
+</dd>
+<dt>alpha (float, optional): The transparency of the label</dt><dd><p>image when overlaid on the satellite image. A value of
+0 means fully transparent and a value of 1 means fully
+opaque. The default value is 0.3.</p>
+</dd>
+</dl>
+<p>color_palette (list, optional): Color palette.
+class_labels (Optional[List[str]], optional): List of class labels for the legend.</p>
+<blockquote>
+<div><p>If not provided, it assumes a binary classification.</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="astrovision.data.SegmentationLabeledSatelliteImage.plot_label_next_to_image">
+<span class="sig-name descname"><span class="pre">plot_label_next_to_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bands_indices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_palette</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_labels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#astrovision.data.SegmentationLabeledSatelliteImage.plot_label_next_to_image" title="Permalink to this definition">#</a></dt>
+<dd><p>Plot a subset of bands from a satellite image and its
+corresponding label on the side.</p>
+<dl>
+<dt>Args:</dt><dd><dl class="simple">
+<dt>bands_indices (List[int]): List of indices of bands to plot.</dt><dd><p>The indices should be integers between 0 and the
+number of bands - 1.</p>
+</dd>
+</dl>
+<p>color_palette (list, optional): Color palette.
+class_labels (Optional[List[str]], optional): List of class labels for the legend.</p>
+<blockquote>
+<div><p>If not provided, it assumes a binary classification.</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="astrovision.data.SegmentationLabeledSatelliteImage.to_classification_labeled_image">
+<span class="sig-name descname"><span class="pre">to_classification_labeled_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aggregation_method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'any'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#astrovision.data.ClassificationLabeledSatelliteImage" title="astrovision.data.ClassificationLabeledSatelliteImage"><span class="pre">ClassificationLabeledSatelliteImage</span></a></span></span><a class="headerlink" href="#astrovision.data.SegmentationLabeledSatelliteImage.to_classification_labeled_image" title="Permalink to this definition">#</a></dt>
+<dd><p>Return a ClassificationLabeledSatelliteImage.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>aggregation_method (str): Method to aggregate pixel labels to a single class.</dt><dd><p>Options: ‘any’ (default), ‘majority’, ‘weighted’.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><p>ClassificationLabeledSatelliteImage: Image with a single class label.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="astrovision.data.DetectionLabeledSatelliteImage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">astrovision.data.</span></span><span class="sig-name descname"><span class="pre">DetectionLabeledSatelliteImage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">satellite_image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="satellite_image/index.html#astrovision.data.satellite_image.SatelliteImage" title="astrovision.data.satellite_image.SatelliteImage"><span class="pre">astrovision.data.satellite_image.SatelliteImage</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'RIL'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'BDTOPO'</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labeling_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime.datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#astrovision.data.DetectionLabeledSatelliteImage" title="Permalink to this definition">#</a></dt>
+<dd><p>Class for satellite images with an object detection label.
+The segmentation label is a List of box coordinates indicating
+the coordinates of buildings on the image.
+TODO: generalize to n classes ?</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="astrovision.data.DetectionLabeledSatelliteImage.satellite_image">
+<span class="sig-name descname"><span class="pre">satellite_image</span></span><a class="headerlink" href="#astrovision.data.DetectionLabeledSatelliteImage.satellite_image" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="astrovision.data.DetectionLabeledSatelliteImage.label">
+<span class="sig-name descname"><span class="pre">label</span></span><a class="headerlink" href="#astrovision.data.DetectionLabeledSatelliteImage.label" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="astrovision.data.DetectionLabeledSatelliteImage.source">
+<span class="sig-name descname"><span class="pre">source</span></span><a class="headerlink" href="#astrovision.data.DetectionLabeledSatelliteImage.source" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="astrovision.data.DetectionLabeledSatelliteImage.labeling_date">
+<span class="sig-name descname"><span class="pre">labeling_date</span></span><a class="headerlink" href="#astrovision.data.DetectionLabeledSatelliteImage.labeling_date" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="astrovision.data.DetectionLabeledSatelliteImage.split">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nfolds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#astrovision.data.DetectionLabeledSatelliteImage" title="astrovision.data.DetectionLabeledSatelliteImage"><span class="pre">DetectionLabeledSatelliteImage</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#astrovision.data.DetectionLabeledSatelliteImage.split" title="Permalink to this definition">#</a></dt>
+<dd><p>Split the DetectionLabeledSatelliteImage into labeled
+tiles of dimension (<cite>tile_length</cite> x <cite>tile_length</cite>).</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>tile_length (int): Dimension of tiles</p>
+</dd>
+<dt>Returns:</dt><dd><p>List[DetectionLabeledSatelliteImage]: Labeled tiles.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="astrovision.data.DetectionLabeledSatelliteImage.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bands_indices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#astrovision.data.DetectionLabeledSatelliteImage.plot" title="Permalink to this definition">#</a></dt>
+<dd><p>Plot a subset of bands from the satellite image with its
+corresponding label.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>bands_indices (List[int]): List of indices of bands to plot.</dt><dd><p>The indices should be integers between 0 and the
+number of bands - 1.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="astrovision.data.DetectionLabeledSatelliteImage.to_classification_labeled_image">
+<span class="sig-name descname"><span class="pre">to_classification_labeled_image</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#astrovision.data.ClassificationLabeledSatelliteImage" title="astrovision.data.ClassificationLabeledSatelliteImage"><span class="pre">ClassificationLabeledSatelliteImage</span></a></span></span><a class="headerlink" href="#astrovision.data.DetectionLabeledSatelliteImage.to_classification_labeled_image" title="Permalink to this definition">#</a></dt>
+<dd><p>Return a ClassificationLabeledSatelliteImage.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="astrovision.data.ClassificationLabeledSatelliteImage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">astrovision.data.</span></span><span class="sig-name descname"><span class="pre">ClassificationLabeledSatelliteImage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">satellite_image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="satellite_image/index.html#astrovision.data.satellite_image.SatelliteImage" title="astrovision.data.satellite_image.SatelliteImage"><span class="pre">astrovision.data.satellite_image.SatelliteImage</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'RIL'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'BDTOPO'</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labeling_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime.datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#astrovision.data.ClassificationLabeledSatelliteImage" title="Permalink to this definition">#</a></dt>
+<dd><p>Class for satellite images with 0-1 classification label.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="astrovision.data.ClassificationLabeledSatelliteImage.satellite_image">
+<span class="sig-name descname"><span class="pre">satellite_image</span></span><a class="headerlink" href="#astrovision.data.ClassificationLabeledSatelliteImage.satellite_image" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="astrovision.data.ClassificationLabeledSatelliteImage.label">
+<span class="sig-name descname"><span class="pre">label</span></span><a class="headerlink" href="#astrovision.data.ClassificationLabeledSatelliteImage.label" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="astrovision.data.ClassificationLabeledSatelliteImage.source">
+<span class="sig-name descname"><span class="pre">source</span></span><a class="headerlink" href="#astrovision.data.ClassificationLabeledSatelliteImage.source" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="astrovision.data.ClassificationLabeledSatelliteImage.labeling_date">
+<span class="sig-name descname"><span class="pre">labeling_date</span></span><a class="headerlink" href="#astrovision.data.ClassificationLabeledSatelliteImage.labeling_date" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="astrovision.data.ClassificationLabeledSatelliteImage.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bands_indices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#astrovision.data.ClassificationLabeledSatelliteImage.plot" title="Permalink to this definition">#</a></dt>
+<dd><p>Plot a subset of bands of the satellite image with a green
+or red overlay depending on whether it is labeled 1 or 0.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>bands_indices (List): List of indices of bands to plot.</dt><dd><p>The indices should be integers between 0 and the
+number of bands - 1.</p>
+</dd>
+<dt>alpha (float, optional): The transparency of the label</dt><dd><p>color when overlaid on the satellite image. A value of
+0 means fully transparent and a value of 1 means fully
+opaque. The default value is 0.2.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">astrovision</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="constants/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">astrovision.data.constants</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classes">Classes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#package-contents">Package Contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage"><code class="docutils literal notranslate"><span class="pre">SatelliteImage</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.array"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.array</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.crs"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.crs</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.bounds"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.bounds</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.transform"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.transform</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.dep"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.dep</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.date"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.date</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.split"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.split()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.to_tensor"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.to_tensor()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.normalize"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.normalize()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.copy"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.copy()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.plot"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.plot()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.from_raster"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.from_raster()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.to_raster"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.to_raster()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.to_raster_jp2"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.to_raster_jp2()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.to_raster_tif"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.to_raster_tif()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.intersects_box"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.intersects_box()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.intersects_polygon"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.intersects_polygon()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SatelliteImage.contains"><code class="docutils literal notranslate"><span class="pre">SatelliteImage.contains()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SegmentationLabeledSatelliteImage"><code class="docutils literal notranslate"><span class="pre">SegmentationLabeledSatelliteImage</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SegmentationLabeledSatelliteImage.satellite_image"><code class="docutils literal notranslate"><span class="pre">SegmentationLabeledSatelliteImage.satellite_image</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SegmentationLabeledSatelliteImage.label"><code class="docutils literal notranslate"><span class="pre">SegmentationLabeledSatelliteImage.label</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SegmentationLabeledSatelliteImage.source"><code class="docutils literal notranslate"><span class="pre">SegmentationLabeledSatelliteImage.source</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SegmentationLabeledSatelliteImage.labeling_date"><code class="docutils literal notranslate"><span class="pre">SegmentationLabeledSatelliteImage.labeling_date</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SegmentationLabeledSatelliteImage.logits"><code class="docutils literal notranslate"><span class="pre">SegmentationLabeledSatelliteImage.logits</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SegmentationLabeledSatelliteImage.split"><code class="docutils literal notranslate"><span class="pre">SegmentationLabeledSatelliteImage.split()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SegmentationLabeledSatelliteImage.plot"><code class="docutils literal notranslate"><span class="pre">SegmentationLabeledSatelliteImage.plot()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SegmentationLabeledSatelliteImage.plot_label_next_to_image"><code class="docutils literal notranslate"><span class="pre">SegmentationLabeledSatelliteImage.plot_label_next_to_image()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.SegmentationLabeledSatelliteImage.to_classification_labeled_image"><code class="docutils literal notranslate"><span class="pre">SegmentationLabeledSatelliteImage.to_classification_labeled_image()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.DetectionLabeledSatelliteImage"><code class="docutils literal notranslate"><span class="pre">DetectionLabeledSatelliteImage</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.DetectionLabeledSatelliteImage.satellite_image"><code class="docutils literal notranslate"><span class="pre">DetectionLabeledSatelliteImage.satellite_image</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.DetectionLabeledSatelliteImage.label"><code class="docutils literal notranslate"><span class="pre">DetectionLabeledSatelliteImage.label</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.DetectionLabeledSatelliteImage.source"><code class="docutils literal notranslate"><span class="pre">DetectionLabeledSatelliteImage.source</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.DetectionLabeledSatelliteImage.labeling_date"><code class="docutils literal notranslate"><span class="pre">DetectionLabeledSatelliteImage.labeling_date</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.DetectionLabeledSatelliteImage.split"><code class="docutils literal notranslate"><span class="pre">DetectionLabeledSatelliteImage.split()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.DetectionLabeledSatelliteImage.plot"><code class="docutils literal notranslate"><span class="pre">DetectionLabeledSatelliteImage.plot()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.DetectionLabeledSatelliteImage.to_classification_labeled_image"><code class="docutils literal notranslate"><span class="pre">DetectionLabeledSatelliteImage.to_classification_labeled_image()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.ClassificationLabeledSatelliteImage"><code class="docutils literal notranslate"><span class="pre">ClassificationLabeledSatelliteImage</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.ClassificationLabeledSatelliteImage.satellite_image"><code class="docutils literal notranslate"><span class="pre">ClassificationLabeledSatelliteImage.satellite_image</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.ClassificationLabeledSatelliteImage.label"><code class="docutils literal notranslate"><span class="pre">ClassificationLabeledSatelliteImage.label</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.ClassificationLabeledSatelliteImage.source"><code class="docutils literal notranslate"><span class="pre">ClassificationLabeledSatelliteImage.source</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.ClassificationLabeledSatelliteImage.labeling_date"><code class="docutils literal notranslate"><span class="pre">ClassificationLabeledSatelliteImage.labeling_date</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#astrovision.data.ClassificationLabeledSatelliteImage.plot"><code class="docutils literal notranslate"><span class="pre">ClassificationLabeledSatelliteImage.plot()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Raya Berova, Thomas Faria, Clément Guillo, Tom Seimandi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, Raya Berova, Thomas Faria, Clément Guillo, Tom Seimandi.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
