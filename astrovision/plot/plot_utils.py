@@ -174,13 +174,18 @@ def make_mosaic_lsi(
     memory_files = []
     raster_list = []
     for i, image in enumerate(labelled_satellite_images):
-        label = np.expand_dims(image.label, axis=0)
+        # Add one dimension if label is of shape (H*W)
+        label = (
+            np.expand_dims(image.label, axis=0)
+            if len(image.label.shape) == 2
+            else image.label
+        )
         memfile = rasterio.io.MemoryFile()
         with memfile.open(
             driver="GTiff",
+            count=label.shape[0],
             height=label.shape[1],
             width=label.shape[2],
-            count=1,
             dtype=rasterio.float64,
             crs=image.satellite_image.crs,
             transform=image.satellite_image.transform,
